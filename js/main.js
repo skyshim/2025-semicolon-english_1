@@ -1,4 +1,49 @@
-// 모종의 이슈로 하던거 날림ㅎ
+// ============ 체크박스 생성 코드 ===========
+const chap = document.querySelector('.chapter');
+
+let ex1 = ''; // 1,2,5,6과용 exercise 요소
+for(let i = 1; i < 13; i++) {
+    ex1 += `<label><input type="checkbox"> Exercise ${i}</label>\n`;
+}
+
+let ex2 = ''; // 9,10과용 exercise 요소
+for(let i = 1; i < 11; i++) {
+    if (i == 5) {
+        ex2 += `<label><input type="checkbox"> Exercise 5-6</label>\n`;
+        continue;
+    } else if (i == 6) continue;
+    ex2 += `<label><input type="checkbox"> Exercise ${i}</label>\n`;
+}
+ex2 += `<label><input type="checkbox"> Exercise 11-12</label>\n`;
+
+[1,2,5,6].forEach(unit => { // 1,2,5,6과 추가가
+    const content = `
+    <details>
+        <summary>
+            <label><input id="unit${unit}" type="checkbox"> UNIT ${unit}</label>
+        </summary>
+        <div class="unit-content">
+            ${ex1}
+        </div>
+    </details>
+    `;
+    chap.innerHTML += content;
+});
+
+[9,10].forEach(unit => { //9,10과 추가
+    const content = `
+    <details>
+        <summary>
+            <label><input id="unit${unit}" type="checkbox"> UNIT ${unit}</label>
+        </summary>
+        <div class="unit-content">
+            ${ex2}
+        </div>
+    </details>
+    `;
+    chap.innerHTML += content;
+});
+// ============================
 
 //요소 받기
 const btnSelectAll = document.getElementById('select-all')
