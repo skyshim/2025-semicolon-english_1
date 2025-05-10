@@ -1,0 +1,66 @@
+//요소 받기
+const btnSelectAll = document.getElementById('select-all')
+const btnCancelAll = document.getElementById('cancel-all')
+
+const unitBoxes = document.querySelectorAll('summary label input[type="checkbox"]') //label로 감싸져있음에 주의
+
+const btnStart = document.getElementById('btn-start')
+
+
+const units = document.querySelectorAll('details')
+//변수 설정
+let checklist = [] // [(UNIT), (Exercise), (Exercise)] [] [] .... 형식
+let unitIndex
+
+// ========================================================
+
+// 전체 선택|해제 버튼 설정
+btnSelectAll.addEventListener('click', function() {
+    const boxes = document.querySelectorAll('input[type="checkbox"]')
+    boxes.forEach(cb => cb.checked = true)
+})
+
+btnCancelAll.addEventListener('click', function() {
+    const boxes = document.querySelectorAll('input[type="checkbox"]')
+    boxes.forEach(cb => cb.checked = false)
+})
+
+//UNIT별 체크박스
+unitBoxes.forEach(box => {
+    box.addEventListener('change', function() {
+        const childs = this.closest('details').querySelectorAll('.unit-content input[type="checkbox"]')
+        if (box.checked) {
+            childs.forEach(c => c.checked = true)
+        } else {
+            childs.forEach(c => c.checked = false)
+        }
+    })
+})
+
+//TODO - 모든 하위항목 해제시 상위 박스 해제(필요에 따라)
+
+// ========================================================
+
+//체크박스 확인함수
+function checkboxDetect() {
+    units.forEach(rawData => {
+        const unitTemp = []
+        
+        unitIndex = rawData.querySelector('summary input[type="checkbox"]').id.at(-1)
+        unitTemp.push(unitIndex)
+        rawData.querySelectorAll('.unit-content label').forEach(c => { //label들에 대하여
+            if (c.querySelector('input[type="checkbox"]').checked) { //각 박스들이 체크되어있으면
+                unitTemp.push(c.textContent.at(-1)) //뒷자리(숫자)만을 반환
+            }
+        })
+        console.log(unitTemp)
+        checklist.push(unitTemp)
+    })
+} //통지문(Exercise 11~12 등)을 어떻게 처리해야 할지? 데이터에 맞게 통으로 되어있는지 감지한 후 
+
+//스타트 버튼
+btnStart.addEventListener('click', function() {
+    checkboxDetect()
+    sessionStorage.setItem('checklist', JSON.stringify(checklist))
+    window.location.href = 'quiz.html'
+})
