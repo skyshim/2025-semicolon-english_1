@@ -16,7 +16,7 @@ for(let i = 1; i < 11; i++) {
 }
 ex2 += `<label><input type="checkbox"> Exercise 11-12</label>\n`;
 
-[1,2,5,6].forEach(unit => { // 1,2,5,6과 추가가
+[1,2,5,6].forEach(unit => { // 1,2,5,6과 추가
     const content = `
     <details>
         <summary>
@@ -85,7 +85,7 @@ unitBoxes.forEach(box => {
 })
 
 //TODO - 모든 하위항목 해제시 상위 박스 해제(필요에 따라)
-
+// 어케하지
 // ========================================================
 
 //체크박스 확인함수
@@ -122,7 +122,7 @@ function checkboxDetect() {
 btnStart.addEventListener('click', function() {
     if(checkboxDetect()) {
         alert('범위를 선택해주세요!')
-    } 
+    }
     else {
         sessionStorage.setItem('checklist', JSON.stringify(checklist))
         window.location.href = 'quiz.html'

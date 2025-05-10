@@ -10,20 +10,26 @@
 
     <div class="container">
         <div class="quiz">
-            <p id="quiz-counter">(1/10)</p>
-            <p id="english-sen">abcdefg____lmnop</p>
-            <input type="text" placeholder="여기에 정답 입력...">
-            <input type="button" value="확인">
+            <p id="quiz-counter">Question 1 of 10</p>
+            <p id="unit-indicater">Unit 1 Exercise 1</p>
+            <p id="english-sen">ENGLISH SENTENCE</p>
+            <p id="korean-sen">KOREAN SENTENCE</p>
+            <input type="text" id="answer" placeholder="여기에 정답 입력...">
+            <input type="button" id="check-button" value="확인">
             <br>
-            <input type="button" value="홈으로">
         </div> 
-
-        <div class="quiz-end">
+        <div id="result-page", style="display: none;">
+            <h3 id="result-indicater"></h3>
+            <p id="result-discription"></p>
+            <p>Enter키 또는 확인 버튼을 눌러 계속</p>
+        </div>
+        <input type="button" id="go-home-button" value="홈으로">
+        <!-- <div class="quiz-end">
             <h3>Congratulations!</h3>
             <p id="results"></p>
             <input type="button" value="돌아가기">
             <input type="button" value="오답노트">
-        </div>
+        </div> -->
     </div>
     <!-- 써있는 텍스트들은 예시, js로 조종할 예정-->
     <!--  구조화 해주세요 :) -->
