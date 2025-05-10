@@ -1,3 +1,5 @@
+// 모종의 이슈로 하던거 날림ㅎ
+
 //요소 받기
 const btnSelectAll = document.getElementById('select-all')
 const btnCancelAll = document.getElementById('cancel-all')
