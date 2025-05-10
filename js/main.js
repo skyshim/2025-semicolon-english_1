@@ -43,6 +43,8 @@ unitBoxes.forEach(box => {
 
 //체크박스 확인함수
 function checkboxDetect() {
+    checklist = []
+
     units.forEach(rawData => {
         const unitTemp = []
         const unitInnerTemp = []
@@ -56,16 +58,15 @@ function checkboxDetect() {
 
         if (unitInnerTemp.length != 0) {
             unitTemp.push(unitInnerTemp)
-            console.log(unitTemp)
         }
 
-        console.log(unitTemp)
 
-        if (unitTemp.length != 1) { //첫 index는 포함되기때문문
-            checklist.push(unitInnerTemp)
+        if (unitTemp.length != 1) { //첫 index는 포함되기때문
+            checklist.push(unitTemp)
         }
     })
     
+    console.log(checklist)
     if (checklist.length == 0) return 1
 } //통지문(Exercise 11~12 등)을 어떻게 처리해야 할지? 
   // 데이터에 맞게 통으로 되어있는지 감지한 후 따로 빼는 조건문이 필요할 듯
@@ -77,6 +78,6 @@ btnStart.addEventListener('click', function() {
     } 
     else {
         sessionStorage.setItem('checklist', JSON.stringify(checklist))
-        // window.location.href = 'quiz.html'
+        window.location.href = 'quiz.html'
     }
 })

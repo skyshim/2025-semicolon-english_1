@@ -1,3 +1,5 @@
+//데이터 불러오기
+
 const checklist = JSON.parse(sessionStorage.getItem('checklist'))
 console.log(checklist)
 let data = []
@@ -14,10 +16,9 @@ fetch('data.csv')
             skipEmptyLines: true
         }).data
 
-        rows.shift() //맨윗줄 제거
         rows.forEach(line => {
             for (let itemlist of checklist) {
-                if ((line.unit === itemlist[0]) && (itemlist[1].includes(line.exercise))) {
+                if ((line.UNIT === itemlist[0]) && (itemlist[1].includes(line.EXERCISE))) {
                     data.push(line)
                 }
             }
@@ -25,3 +26,7 @@ fetch('data.csv')
 
         console.log(data)
     })
+
+// ====================================
+
+// 퀴즈
