@@ -9,7 +9,7 @@ const btnStart = document.getElementById('btn-start')
 
 const units = document.querySelectorAll('details')
 //변수 설정
-let checklist = [] // [(UNIT), (Exercise), (Exercise)] [] [] .... 형식
+let checklist = [] // [(UNIT), [(Exercise), (Exercise)]] [] [] .... 형식
 let unitIndex
 
 // ========================================================
@@ -45,22 +45,38 @@ unitBoxes.forEach(box => {
 function checkboxDetect() {
     units.forEach(rawData => {
         const unitTemp = []
-        
+        const unitInnerTemp = []
         unitIndex = rawData.querySelector('summary input[type="checkbox"]').id.at(-1)
         unitTemp.push(unitIndex)
         rawData.querySelectorAll('.unit-content label').forEach(c => { //label들에 대하여
             if (c.querySelector('input[type="checkbox"]').checked) { //각 박스들이 체크되어있으면
-                unitTemp.push(c.textContent.at(-1)) //뒷자리(숫자)만을 반환
+                unitInnerTemp.push(c.textContent.at(-1)) //뒷자리(숫자)만을 반환
             }
         })
+
+        if (unitInnerTemp.length != 0) {
+            unitTemp.push(unitInnerTemp)
+            console.log(unitTemp)
+        }
+
         console.log(unitTemp)
-        checklist.push(unitTemp)
+
+        if (unitTemp.length != 1) { //첫 index는 포함되기때문문
+            checklist.push(unitInnerTemp)
+        }
     })
-} //통지문(Exercise 11~12 등)을 어떻게 처리해야 할지? 데이터에 맞게 통으로 되어있는지 감지한 후 
+    
+    if (checklist.length == 0) return 1
+} //통지문(Exercise 11~12 등)을 어떻게 처리해야 할지? 
+  // 데이터에 맞게 통으로 되어있는지 감지한 후 따로 빼는 조건문이 필요할 듯
 
 //스타트 버튼
 btnStart.addEventListener('click', function() {
-    checkboxDetect()
-    sessionStorage.setItem('checklist', JSON.stringify(checklist))
-    window.location.href = 'quiz.html'
+    if(checkboxDetect()) {
+        alert('범위를 선택해주세요!')
+    } 
+    else {
+        sessionStorage.setItem('checklist', JSON.stringify(checklist))
+        // window.location.href = 'quiz.html'
+    }
 })
