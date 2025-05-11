@@ -50,7 +50,7 @@ const btnSelectAll = document.getElementById('select-all')
 const btnCancelAll = document.getElementById('cancel-all')
 
 const unitBoxes = document.querySelectorAll('summary label input[type="checkbox"]') //label로 감싸져있음에 주의
-
+const contentBoxes = document.querySelectorAll('.unit-content input[type="checkbox"]')
 const btnStart = document.getElementById('btn-start')
 
 
@@ -84,6 +84,18 @@ unitBoxes.forEach(box => {
         }
     })
 })
+
+contentBoxes.forEach(childBox => {
+    childBox.addEventListener('change', function () {
+        const unit = this.closest('details');
+        const parentBox = unit.querySelector('summary input[type="checkbox"]');
+        const children = unit.querySelectorAll('.unit-content input[type="checkbox"]');
+        
+        // 하나라도 체크되어 있으면 상위 체크박스 true
+        const anyChecked = Array.from(children).some(cb => cb.checked);
+        parentBox.checked = anyChecked;
+    });
+});
 
 //TODO - 모든 하위항목 해제시 상위 박스 해제(필요에 따라)
 // 어케하지 안해도되긴함함
