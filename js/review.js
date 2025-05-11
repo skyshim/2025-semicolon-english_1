@@ -37,6 +37,10 @@ for (let w of wrong) {
     wrongSens.innerHTML += content
 }
 
+if (wrong.length === 0) {
+    reviewBtn.style.display = 'none'
+}
+
 reviewBtn.addEventListener('click', () => {
     const tempCl = []
     fetch('data.csv')
