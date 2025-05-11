@@ -4,7 +4,7 @@ console.log(checklist)
 let data = []
 let shfData = []
 
-function shuffle(array) { // Fisher–Yates 알고리즘이래요  
+function shuffle(array) { // Fisher–Yates 알고리즘 
 for (let i = array.length - 1; i > 0; i--) {
     // 0부터 i 사이의 랜덤 인덱스 선택
     const j = Math.floor(Math.random() * (i + 1));
@@ -14,10 +14,9 @@ for (let i = array.length - 1; i > 0; i--) {
 return array;
 }
 
-//checklist
+//checklist 데이터 구조
 //['1_1', ['1', '2', '3']]
-//['9_5-6', ['1', '3']] 이런 느낌임
-//여기 데이터 구조 체크해주세요~
+//['9_5-6', ['1', '3']
 fetch('data.csv')
     .then(res => res.text())
     .then(text => {
@@ -38,7 +37,7 @@ fetch('data.csv')
                     break;
                 }
             }
-        }) //미안해요 영감... 하지만 이렇게 하지 않으면 데이터를 다 바꿔서 문제마다 123123123123 넣어야한다고..
+        })
         console.log(data)
         
         // 셔플
@@ -68,7 +67,7 @@ let disText = '';
 
 // 응답 대기 함수
 function waiting() {
-    return new Promise(resolve => { //아니 님 프로미스 쓸줄 알아요? ㄷㄷ -> 써야될거같아서 급하게 공부함ㅋㅋㅋㅋㅋ
+    return new Promise(resolve => {
         function handler(e) {
             if (e.type === 'keydown' && e.key === 'Enter') {
                 document.removeEventListener('keydown', handler);
