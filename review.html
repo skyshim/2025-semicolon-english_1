@@ -6,6 +6,23 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <h1>Congratulations!</h1>
+    <p id="answer-count">Correct : N</p>
+    <p id="wrong-count">Wrong : M</p>
+    <p id="total-percent">N out of M, ??%</p>
+
+    <div class="wrongs">
+        <details>
+            <summary>SEE INCORRECT ANSWERS</summary>
+            <div class="wrongs-content">
+                <!-- 동적으로 추가할 예정-->
+            </div>
+        </details>
+    </div>
+
+    <input id="review" type="button" value="오답 다시 하기">
+    <input id="home" type="button" value="메인 화면으로">
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
+    <script src="js/review.js"></script>
 </body>
 </html>

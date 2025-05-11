@@ -20,7 +20,7 @@ ex2 += `<label><input type="checkbox"> Exercise 11-12</label>\n`;
     const content = `
     <details>
         <summary>
-            <label><input id="unit${unit}" type="checkbox"> UNIT ${unit}</label>
+            <label><input id="unit_${unit}" type="checkbox"> UNIT ${unit}</label>
         </summary>
         <div class="unit-content">
             ${ex1}
@@ -34,7 +34,7 @@ ex2 += `<label><input type="checkbox"> Exercise 11-12</label>\n`;
     const content = `
     <details>
         <summary>
-            <label><input id="unit${unit}" type="checkbox"> UNIT ${unit}</label>
+            <label><input id="unit_${unit}" type="checkbox"> UNIT ${unit}</label>
         </summary>
         <div class="unit-content">
             ${ex2}
@@ -56,8 +56,9 @@ const btnStart = document.getElementById('btn-start')
 
 const units = document.querySelectorAll('details')
 //변수 설정
-let checklist = [] // [(UNIT), [(Exercise), (Exercise)]] [] [] .... 형식
+let checklist = [] // [(UNIT_Exercise), [num, num, num]] [] [] .... 형식
 let unitIndex
+let exerciseIndex
 
 // ========================================================
 
@@ -85,32 +86,27 @@ unitBoxes.forEach(box => {
 })
 
 //TODO - 모든 하위항목 해제시 상위 박스 해제(필요에 따라)
-// 어케하지
+// 어케하지 안해도되긴함함
 // ========================================================
 
 //체크박스 확인함수
 function checkboxDetect() {
     checklist = []
+    const fixexdInnerTemp = ['1', '2', '3']
 
-    units.forEach(rawData => {
-        const unitTemp = []
-        const unitInnerTemp = []
-        unitIndex = rawData.querySelector('summary input[type="checkbox"]').id.at(-1)
-        unitTemp.push(unitIndex)
-        rawData.querySelectorAll('.unit-content label').forEach(c => { //label들에 대하여
+    units.forEach(unit => {
+        unitIndex = unit.querySelector('summary input[type="checkbox"]').id.split('_').at(-1)
+        
+        unit.querySelectorAll('.unit-content label').forEach(c => { //label들에 대하여
+            const unitTemp = []
+
             if (c.querySelector('input[type="checkbox"]').checked) { //각 박스들이 체크되어있으면
-                unitInnerTemp.push(c.textContent.at(-1)) //뒷자리(숫자)만을 반환
+                exerciseIndex = c.textContent.split(' ').at(-1) //뒷자리(숫자)들만을 반환
+                unitTemp.push(unitIndex + '_' + exerciseIndex)
+                unitTemp.push(fixexdInnerTemp)
+                checklist.push(unitTemp)
             }
         })
-
-        if (unitInnerTemp.length != 0) {
-            unitTemp.push(unitInnerTemp)
-        }
-
-
-        if (unitTemp.length != 1) { //첫 index는 포함되기때문
-            checklist.push(unitTemp)
-        }
     })
     
     console.log(checklist)

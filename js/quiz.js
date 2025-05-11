@@ -4,19 +4,20 @@ console.log(checklist)
 let data = []
 let shfData = []
 
-function shuffle(array) { // Fisher–Yates 알고리즘이래요
-  for (let i = array.length - 1; i > 0; i--) {
+function shuffle(array) { // Fisher–Yates 알고리즘이래요  
+for (let i = array.length - 1; i > 0; i--) {
     // 0부터 i 사이의 랜덤 인덱스 선택
     const j = Math.floor(Math.random() * (i + 1));
     // 요소 교환
     [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
+}
+return array;
 }
 
 //checklist
-//['1', ['1', '2', '3']]
-//['2', ['1', '2', '3']]
+//['1_1', ['1', '2', '3']]
+//['9_5-6', ['1', '3']] 이런 느낌임
+//여기 데이터 구조 체크해주세요~
 fetch('data.csv')
     .then(res => res.text())
     .then(text => {
@@ -25,13 +26,19 @@ fetch('data.csv')
             skipEmptyLines: true
         }).data
 
-        rows.forEach(line => {
-            for (let itemlist of checklist) {
-                if ((line.UNIT === itemlist[0]) && (itemlist[1].includes(line.EXERCISE))) {
-                    data.push(line)
+        let sentenceCounter = 1;
+        rows.forEach(line => { //줄별로 조사
+            for (let itemlist of checklist) { //checklist의 모든 줄에 대해
+                if ((line.UNIT === itemlist[0].split('_')[0]) && (line.EXERCISE === itemlist[0].split('_')[1])) { //UNIT EXERCISE 같으면
+                    if (itemlist[1].includes(String(sentenceCounter))) { //EXERCISE당 3문장을 검사해서
+                        data.push(line) //push
+                    }
+                    sentenceCounter += 1 //이중 for문이라 i사용이 힘듦, 수동으로 외부 카운터 사용
+                    if (sentenceCounter == 4) sentenceCounter = 1;
+                    break;
                 }
             }
-        })
+        }) //미안해요 영감... 하지만 이렇게 하지 않으면 데이터를 다 바꿔서 문제마다 123123123123 넣어야한다고..
         console.log(data)
         
         // 셔플
@@ -61,15 +68,17 @@ let disText = '';
 
 // 응답 대기 함수
 function waiting() {
-    return new Promise(resolve => {
+    return new Promise(resolve => { //아니 님 프로미스 쓸줄 알아요? ㄷㄷ
         function handler(e) {
             if (e.type === 'keydown' && e.key === 'Enter') {
                 document.removeEventListener('keydown', handler);
                 checkBtn.removeEventListener('click', handler);
+                ans.disabled = true;
                 resolve();
             } else if (e.type === 'click') {
                 document.removeEventListener('keydown', handler);
                 checkBtn.removeEventListener('click', handler);
+                ans.disabled = true;
                 resolve();
             }
         }
@@ -82,6 +91,7 @@ function waiting() {
 async function quizStart() {
     let quizLen = shfData.length;
     for(let index = 0; index < quizLen; index++) {
+        ans.focus();
         q = shfData[index];
         // 문제 표시 및 초기화
         resPage.style.display = 'none';
@@ -117,8 +127,17 @@ async function quizStart() {
         resPage.style.display = 'block';
 
         await waiting();
+        ans.disabled = false;
     }
     // 끝나는거 구현해야함
+
+    quizEnd(correct, wrong);
+}
+
+function quizEnd(correct, wrong) {
+    sessionStorage.setItem('correct', JSON.stringify(correct));
+    sessionStorage.setItem('wrong', JSON.stringify(wrong));
+    window.location.href = 'review.html';
 }
 
 // 홈으로 버튼
