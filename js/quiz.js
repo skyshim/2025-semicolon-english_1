@@ -68,7 +68,7 @@ let disText = '';
 
 // 응답 대기 함수
 function waiting() {
-    return new Promise(resolve => { //아니 님 프로미스 쓸줄 알아요? ㄷㄷ
+    return new Promise(resolve => { //아니 님 프로미스 쓸줄 알아요? ㄷㄷ -> 써야될거같아서 급하게 공부함ㅋㅋㅋㅋㅋ
         function handler(e) {
             if (e.type === 'keydown' && e.key === 'Enter') {
                 document.removeEventListener('keydown', handler);
@@ -129,8 +129,6 @@ async function quizStart() {
         await waiting();
         ans.disabled = false;
     }
-    // 끝나는거 구현해야함
-
     quizEnd(correct, wrong);
 }
 

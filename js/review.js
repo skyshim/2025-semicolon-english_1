@@ -4,6 +4,7 @@ const totalCnt = document.getElementById('total-percent')
 const wrongSens = document.querySelector('.wrongs-content')
 const reviewBtn = document.getElementById('review')
 const homeBtn = document.getElementById('home')
+const wrongContainer = document.querySelector('.wrongs')
 
 
 let correct = JSON.parse(sessionStorage.getItem('correct'))
@@ -13,25 +14,27 @@ let checklist = []
 
 //====================================================
 
-correctCnt.innerHTML = `Correct : ${correct}`
-wrongCnt.innerHTML = `Wrong : ${wrong.length}`
+correctCnt.innerHTML = `맞은 개수 : ${correct}`
+wrongCnt.innerHTML = `틀린 개수 : ${wrong.length}`
 totalCnt.innerHTML = `${correct} out of ${correct+wrong.length}, ${(correct*100 / (correct+wrong.length)).toFixed(1)}%`
 
 for (let w of wrong) {
-    let content;
+    let content; // div class='wrong-box'로 묶었음(css 작업할 때 있어야할 것 같아서)
     if (w.ANSWER2 == "") {
         content = `
-            <p>${w.ENGLISH} <\p>
-            <p>ANSWER : '${w.ANSWER1}'\
-            <p>YOUR ANSWER : '${w.WRONG}' <\p>
-            <br>
+            <div class='wrong-box'>
+                <p>${w.ENGLISH} </p>
+                <p>답 : '${w.ANSWER1}'</p>
+                <p>오답 : '${w.WRONG}' </p>
+            </div>
         `
     } else {
         content = `
-            <p>${w.ENGLISH} <\p>
-            <p>ANSWER : '${w.ANSWER1}' or '${w.ANSWER2}' <\p>
-            <p>YOUR ANSWER : '${w.WRONG}' <\p>
-            <br>
+            <div class='wrong-box'>
+                <p>${w.ENGLISH} </p>
+                <p>답 : '${w.ANSWER1}' or '${w.ANSWER2}' </p>
+                <p>오답 : '${w.WRONG}' </p>
+            </div>
         `
     }
     wrongSens.innerHTML += content
@@ -39,6 +42,7 @@ for (let w of wrong) {
 
 if (wrong.length === 0) {
     reviewBtn.style.display = 'none'
+    wrongContainer.style.display = 'none'
 }
 
 reviewBtn.addEventListener('click', () => {

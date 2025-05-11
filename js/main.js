@@ -20,7 +20,7 @@ ex2 += `<label><input type="checkbox"> Exercise 11-12</label>\n`;
     const content = `
     <details>
         <summary>
-            <label><input id="unit_${unit}" type="checkbox"> UNIT ${unit}</label>
+            <label><input id="unit_${unit}" type="checkbox"> Unit ${unit}</label>
         </summary>
         <div class="unit-content">
             ${ex1}
@@ -34,7 +34,7 @@ ex2 += `<label><input type="checkbox"> Exercise 11-12</label>\n`;
     const content = `
     <details>
         <summary>
-            <label><input id="unit_${unit}" type="checkbox"> UNIT ${unit}</label>
+            <label><input id="unit_${unit}" type="checkbox"> Unit ${unit}</label>
         </summary>
         <div class="unit-content">
             ${ex2}
