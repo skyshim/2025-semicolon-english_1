@@ -4,9 +4,19 @@ body {
     padding: 0;
     background-color: #f9f9f9;
     color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
 }
 
-h1, h2, h3 {
+h1 {
+    text-align: center;
+    color: #444;
+    margin: 20px 0;
+}
+
+h2, h3 {
     text-align: center;
     color: #444;
 }
@@ -30,11 +40,89 @@ button, input[type="button"] {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 button:hover, input[type="button"]:hover {
     background-color: #0056b3;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+.select-all, .start {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.chapter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+    max-width: 800px;
+    margin: 20px 0;
+    padding: 0 20px;
+}
+
+.chapter details {
+    flex: 1 1 calc(50% - 20px);
+    margin-bottom: 20px;
+    min-width: 300px;
+}
+
+.chapter summary {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    background-color: #a5a5a5;
+    color: #000000;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.chapter summary:hover {
+    background-color: #868686;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+.chapter summary label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    cursor: pointer;
+}
+
+.chapter summary input[type="checkbox"] {
+    margin: 0;
+    cursor: pointer;
+}
+
+.chapter label {
+    display: block;
+    margin: 5px 0;
+    text-align: left;
+}
+
+.unit-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 10px;
+    padding: 15px;
+    background-color: #ffffe7;
+    border: 1px solid #9c9c9c;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.unit-content label {
+    display: inline-block;
+    margin: 5px 0;
+    text-align: left;
 }
 
 footer {
@@ -42,9 +130,9 @@ footer {
     padding: 10px 0;
     background-color: #333;
     color: #fff;
-    position: fixed;
-    bottom: 0;
     width: 100%;
+    margin-top: auto;
+    margin-bottom: 10px;
 }
 
 .quiz-section {
