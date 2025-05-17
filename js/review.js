@@ -32,6 +32,10 @@ if (isChickenMode) {
     correctCnt.innerHTML = `전체 맞힌 개수 : ${total}`;
     wrongCnt.innerHTML = `틀렸다가 다시 맞힌 개수 : ${wrongCount}`;
     totalCnt.innerHTML = `정확도 (첫 시도 기준): ${firstTryCorrect} / ${total}, ${percent}%`;
+} else {
+    correctCnt.innerHTML = `맞은 개수 : ${correct}`
+    wrongCnt.innerHTML = `틀린 개수 : ${wrong.length}`
+    totalCnt.innerHTML = `${correct} out of ${correct+wrong.length}, ${(correct*100 / (correct+wrong.length)).toFixed(1)}%`
 }
 
 

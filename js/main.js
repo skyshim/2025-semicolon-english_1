@@ -132,12 +132,11 @@ btnStart.addEventListener('click', function() {
     }
 })
 
-const chickenToggle = document.getElementById('chicken-toggle') || null;
+const chickenToggle = document.getElementById('chicken-toggle');
 let isChickenMode = false;
-
 if (chickenToggle) {
-  chickenToggle.addEventListener('change', () => {
-    isChickenMode = chickenToggle.checked;
-    sessionStorage.setItem('chickenMode', JSON.stringify(isChickenMode));
-  });
+    chickenToggle.addEventListener('change', () => {
+        isChickenMode = chickenToggle.checked;
+        sessionStorage.setItem('chickenMode', JSON.stringify(isChickenMode));
+    });
 }
