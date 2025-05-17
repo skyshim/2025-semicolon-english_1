@@ -6,17 +6,32 @@
     <title>Document</title>
 </head>
 <body>
+    <!-- TODO - style태그는 나중에 합쳐주세요~-->
+    <style>
+        .underline {
+            border: none;
+            border-bottom: 2px solid black;
+            width: 120px;
+            font-size: 1em;
+            padding: 2px;
+            margin-left: 4px;
+            margin-right: 4px;
+        }
+    </style>
     <h1>모의 시험</h1>
-    <h2>남은 시간 - 15:00</h2>
-    <div class="container">
-        <!-- <div class="quiz-sentence">
-            <p>I e
+    <h2 id="timer">남은 시간 - 15:00</h2>
+    <form id="submit-form">
+        <div class="quiz-container">
+            <!-- <p>I e
                 <input type="text" class="underline" id="answer1"> 
                 an old friend at the town coffee shop last week.</p>
 
-            <p>나는 지난주에 시내 커피숍에서 옛 친구를 우연히 만났다.</p>
-        </div> -->
+            <p>나는 지난주에 시내 커피숍에서 옛 친구를 우연히 만났다.</p> -->
+        </div>
         <!-- 동적으로 추가예정(문장 불러온 후 _____ 자리에 <input>태그 삽입) -->
-    </div>
+        <button type="submit">제출</button>
+    </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script src="js/test.js"></script>
 </body>
 </html>
