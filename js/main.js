@@ -131,3 +131,13 @@ btnStart.addEventListener('click', function() {
         window.location.href = 'quiz.html'
     }
 })
+
+const chickenToggle = document.getElementById('chicken-toggle') || null;
+let isChickenMode = false;
+
+if (chickenToggle) {
+  chickenToggle.addEventListener('change', () => {
+    isChickenMode = chickenToggle.checked;
+    sessionStorage.setItem('chickenMode', JSON.stringify(isChickenMode));
+  });
+}
