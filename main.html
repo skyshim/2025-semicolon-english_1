@@ -7,42 +7,49 @@
     <title>Word Test</title>
 </head>
 <body>
-    <h1>운정고 2학년 단어 시험 대비</h1>
-    <div class="select-all">
-        <input id="select-all" type="button" value="전체 선택">
-        <input id="cancel-all" type="button" value="전체 선택 해제">
-    </div>
-    <div class="chapter">
-        <!-- js로 이런 구조의 요소 추가함 -->
-        <!-- <details>
-            <summary>
-                <label><input id="unit_1" type="checkbox"> Unit 1</label>
-            </summary>
-            <div class="unit-content">
-                <label><input type="checkbox"> Exercise 1</label>
-                <label><input type="checkbox"> Exercise 2</label>
-                <label><input type="checkbox"> Exercise 3</label>
+    <div class="outline">
+        <div class="container">
+            <h1>운정고 2학년 단어 시험 대비</h1>
+        </div>
+            <div style="display: flex; justify-content: space-between;">
+                <div class="select-all" style="display: flex; gap: 1.5rem; margin: 10px">
+                    <input id="select-all" type="button" value="전체 선택">
+                    <input id="cancel-all" type="button" value="전체 선택 해제">
+                </div>
+                <div style="display: flex; gap: 1.5rem; margin: 10px">
+                    <div class="start">
+                        <input id="btn-start" type="button" value="테스트 시작하기">
+                    </div>
+                    <div class="mock-test">
+                        <input id="btn-mock-test" type="button" value="모의 테스트">
+                    </div>
+                </div>
             </div>
-        </details> -->
-    </div>
-    
-    <div class="start">
-        <input id="btn-start" type="button" value="테스트 시작하기">
-    </div>
-    <div class="toggle-wrapper">
-        <span class="label-text">무한 모드</span>
-        <div class="toggle-with-tooltip">
-          <div class="tooltip">선택 범위 내 모든 정답을 맞힐 때까지 반복합니다.</div>
-          <label class="switch">
-            <input type="checkbox" class="not-all-checked" id="chicken-toggle">
-            <span class="slider"></span>
-          </label>
+            <div class="outbox">
+            <div class="chapter">
+                <!-- js로 이런 구조의 요소 추가함 -->
+                <!-- <details>
+                    <summary>
+                        <label><input id="unit_1" type="checkbox"> Unit 1</label>
+                    </summary>
+                    <div class="unit-content">
+                        <label><input type="checkbox"> Exercise 1</label>
+                        <label><input type="checkbox"> Exercise 2</label>
+                        <label><input type="checkbox"> Exercise 3</label>
+                    </div>
+                </details> -->
+            </div>
+            <div id='wrapper'>
+                <div>
+                    © 2025 SEMICOLON. All rights reserved.
+                </div>
+            </div>
+            <footer></footer>
+        <!-- <footer style="position : absolute; bottom : 10px;">
+            © 2025 SEMICOLON. All rights reserved.
+        </footer> -->
+        <script src="js/main.js"></script>
         </div>
     </div>
-    <hr>
-    <footer>
-        © 2025 SEMICOLON. All rights reserved.
-    </footer>
-    <script src="js/main.js"></script>
 </body>
 </html>

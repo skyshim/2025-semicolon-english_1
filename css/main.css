@@ -1,353 +1,218 @@
+/* ========== 기본 전체 스타일 ========== */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  background: white;
+  color: #007C84;
+  margin: 0;
+  padding: 0;
 }
-
-h1 {
-    text-align: center;
-    color: #444;
-    margin: 20px 0;
+.outline{
+  margin: 20px 20px 20px 20px;
 }
-
-h2, h3 {
-    text-align: center;
-    color: #444;
+.outbox{
+    margin: 10px;
+    padding: 10px;
+    background-color: #EAF3F4;
+    min-height: calc(100vh - 350px);  /* viewport height */
+    border-radius: 20px;
 }
-
+/* 메인 컨테이너 */
 .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    max-width: 100%;
+    margin: 2rem auto;
+    background-color: #EAF3F4;
+    padding: 1px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(126, 223, 223, 0.137);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
 }
 
-button, input[type="button"] {
-    display: inline-block;
-    padding: 10px 20px;
-    margin: 10px 5px;
-    font-size: 16px;
-    color: #fff;
-    background-color: #007BFF;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.container h1 {
+  font-size: 2rem;
+  font-weight: 400;
+  margin-bottom: 2rem;
+  margin: 2rem;
 }
 
-button:hover, input[type="button"]:hover {
-    background-color: #0056b3;
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+
+input[type="button"] {
+  padding: 0.8rem 1.4rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  background-color: rgba(255, 255, 255, 0.4);
+  color: #007C84;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.select-all, .start {
-    margin: 20px 0;
-    text-align: center;
+input[type="button"]:hover {
+  background-color: #007C84;
+  color: #EAF3F4;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
 }
 
+
+/* ========== 아코디언 챕터 목록 ========== */
 .chapter {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    width: 100%;
-    max-width: 800px;
-    margin: 20px 0;
-    padding: 0 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.5rem;
 }
 
-.chapter details {
-    flex: 1 1 calc(50% - 20px);
-    margin-bottom: 20px;
-    min-width: 300px;
+details {
+  width: 280px;
+  margin: 0 40px 2rem 0;
+  background: transparent;  /* 투명!! */
+  border: none;
+  box-shadow: none;         /* 그림자도 none! */
+  border-radius: 0;         /* 둥근 것도 필요없음 */
+  overflow: visible;
+  transition: none;
 }
 
-.chapter summary {
-    display: flex;
-    align-items: center;
-    padding: 10px 15px;
-    margin-bottom: 10px;
-    background-color: #a5a5a5;
-    color: #000000;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+/* summary만 예쁘게 */
+summary {
+  background: #EAF3F4;
+  color: #f6fbfd;
+  padding: 16px 28px;
+  font-size: 1.2rem;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  min-height: 56px;
+  user-select: none;
+  font-weight: 500;
+  box-shadow: 0 6px 22px rgba(0,0,0,0.10); /* 여기에만 그림자 */
 }
 
-.chapter summary:hover {
-    background-color: #868686;
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+summary::-webkit-details-marker { display: none; }
+summary::after {
+  content: "▼";
+  color: #007C84;
+  font-size: 1.2rem;
+}
+details[open] summary::after {
+  content: "▲";
+  color: white;
+}
+details[open] summary {
+background-color: #007C84;
 }
 
-.chapter summary label {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 0;
-    cursor: pointer;
+/* 여기서 진짜 박스는 .unit-content에만! */
+details .unit-content {
+  display: none;  /* 닫혀있으면 아예 없음 */
+}
+details[open] .unit-content {
+  display: flex;
+  flex-direction: column;
+  background: #b2d9de;             /* 연청록! */
+  border-radius: 0 0 20px 20px;    /* summary랑 맞추기 */
+  padding: 22px 22px 22px 22px;
+  margin-top: -14px;
+  gap: 0.8rem;
+  box-shadow: 0 6px 22px rgba(0,0,0,0.10); /* 박스에 그림자(원하면) */
+  animation: dropdownOpen 0.35s;
+}
+@keyframes dropdownOpen {
+  from { opacity: 0; transform: translateY(-12px);}
+  to   { opacity: 1; transform: translateY(0);}
 }
 
-.chapter summary input[type="checkbox"] {
-    margin: 0;
-    cursor: pointer;
-}
 
-.chapter label {
-    display: block;
-    margin: 5px 0;
-    text-align: left;
-}
-
-.unit-content {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    margin-top: 10px;
-    padding: 15px;
-    background-color: #ffffe7;
-    border: 1px solid #9c9c9c;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
+/* radio + label */
 .unit-content label {
-    display: inline-block;
-    margin: 5px 0;
-    text-align: left;
-}
-
-footer {
-    text-align: center;
-    padding: 10px 0;
-    background-color: #333;
-    color: #fff;
-    width: 100%;
-    margin-top: auto;
-    margin-bottom: 10px;
-}
-
-.quiz-section {
-    margin-top: 20px;
-}
-
-.quiz-question {
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-
-.quiz-options label {
-    display: block;
-    margin: 5px 0;
-}
-
-.review-section {
-    margin-top: 20px;
-}
-
-.review-item {
-    border-bottom: 1px solid #ddd;
-    padding: 10px 0;
-}
-
-.review-item:last-child {
-    border-bottom: none;
-}
-
-.test-section {
-    margin-top: 20px;
-}
-
-.test-timer {
-    font-size: 20px;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.test-question {
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-
-.test-options label {
-    display: block;
-    margin: 5px 0;
-}
-
-#progress-container {
-    width: 100%;
-    height: 20px;
-    background-color: #e0e0e0;
-    border-radius: 10px;
-    overflow: hidden;
-    margin-top: 10px;
-}
-  
-#progress-bar {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(to left, #6f42c1, #007BFF, #00bfff);
-  transition: width 0.4s ease;
-}
-
-
-.switch {
-  position: relative;
-  display: inline-flex;
+  color: #f6fbfd;
+  font-weight: 400;
+  font-size: 1.05rem;
+  margin-bottom: 0.2rem;
+  display: flex;
   align-items: center;
   cursor: pointer;
-  font-family: sans-serif;
-  margin: 10px;
+  gap: 0.5rem;
+  /* radio와 텍스트 간격 */
 }
 
-.switch input {
-  display: none;
+/* radio 커스텀 (선택사항) */
+.unit-content input[type="radio"] {
+  accent-color: #07949d;      /* 최신 브라우저 지원, 그냥 두면 기본 스타일도 예쁨 */
+  width: 18px;
+  height: 18px;
+  margin: 0 8px 0 0;
 }
 
-.slider {
-  position: relative;
-  width: 50px;
-  height: 26px;
-  background-color: #ccc;
-  border-radius: 50px;
-  transition: 0.4s;
-  margin-right: 10px;
+.unit-content input[type="radio"]:checked + span {
+  font-weight: 500;
+  color: #fff;
 }
 
-.slider::before {
-  content: "";
-  position: absolute;
-  height: 22px;
-  width: 22px;
-  left: 2px;
-  bottom: 2px;
-  background-color: white;
-  border-radius: 50%;
-  transition: 0.4s;
+#wrapper{
+  height: auto;
+  min-height: 100%;
+  padding-bottom: 0;
 }
-
-/* 체크되었을 때 */
-input:checked + .slider {
-  background-color: #007BFF; /* 살구빛 */
+footer{
+  height: 0;
+  position : relative;
+  transform : translateY(-100%);
 }
-
-input:checked + .slider::before {
-  transform: translateX(24px);
-}
-
-/* 텍스트 */
-.label-text {
-  font-size: 14px;
+/* 기본 label 감성 강화 */
+label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
   user-select: none;
+  color: #007C84;
 }
 
-.toggle-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 20px;
-  }
-  
-  .label-text {
-    font-size: 15px;
-  }
-  
-  /* 말풍선 포함한 토글 박스 */
-  .toggle-with-tooltip {
-    position: relative;
-    display: inline-block;
-  }
-  
-  /* 툴팁 기본 숨김 */
-  .tooltip {
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #333;
-    color: #fff;
-    padding: 6px 10px;
-    border-radius: 10px;
-    font-size: 13px;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-  }
-  
-  /* 꼬리 */
-  .tooltip::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -6px;
-    border-width: 6px;
-    border-style: solid;
-    border-color: #333 transparent transparent transparent;
-  }
-  
-  /* hover 시 툴팁 표시 */
-  .toggle-with-tooltip:hover .tooltip {
-    opacity: 1;
-  }
-  
-  /* 기본 토글 스위치 스타일 */
-  .switch {
-    position: relative;
-    display: inline-block;
-    width: 50px;
-    height: 28px;
-  }
-  
-  .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-  
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    background-color: #ccc;
-    border-radius: 34px;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    transition: 0.4s;
-  }
-  
-  .slider::before {
-    position: absolute;
-    content: "";
-    height: 22px;
-    width: 22px;
-    left: 3px;
-    bottom: 3px;
-    background-color: white;
-    transition: 0.4s;
-    border-radius: 50%;
-  }
-  
-  input:checked + .slider {
-    background-color: #007BFF;
-  }
-  
-  input:checked + .slider::before {
-    transform: translateX(22px);
-  }
-  
-  
-  
-  
-  
+details[open] label {
+  color: white;
+}
+
+label input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 17px;
+  height: 17px;
+  border-radius: 100%;
+  border: 2px solid #007C84;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(4px);
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+details[open] label input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 17px;
+  height: 17px;
+  border-radius: 100%;
+  border: 2px solid white;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(4px);
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+/* 체크됐을 때 */
+label input[type="checkbox"]:checked {
+  background-color: white;
+}
+
+/* 체크됐을 때 표시 보이기 */
+label input[type="checkbox"]:checked::after {
+  opacity: 1;
+}
