@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let data = []
     let shfData = []
     
-    function shuffle(array) { // Fisher–Yates 가이즘 
+    function shuffle(array) { // Fisher–Yates 알고리즘
       for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
@@ -192,5 +192,5 @@ document.addEventListener('DOMContentLoaded', () => {
       window.location.href = 'main.html';
     });
     
-    });
+});
     

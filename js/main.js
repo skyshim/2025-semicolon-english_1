@@ -1,12 +1,12 @@
 // ============ 체크박스 생성 코드 ===========
 const chap = document.querySelector('.chapter');
 
-let ex1 = ''; // 1,2,5,6과용 exercise 요소
+let ex1 = ''; // 1,2,5과용 exercise 요소
 for(let i = 1; i < 13; i++) {
     ex1 += `<label><input type="checkbox"> Exercise ${i}</label>\n`;
 }
 
-let ex2 = ''; // 9,10과용 exercise 요소
+let ex2 = ''; // 9과용 exercise 요소
 for(let i = 1; i < 11; i++) {
     if (i == 5) {
         ex2 += `<label><input type="checkbox"> Exercise 5-6</label>\n`;
@@ -16,7 +16,7 @@ for(let i = 1; i < 11; i++) {
 }
 ex2 += `<label><input type="checkbox"> Exercise 11-12</label>\n`;
 
-[1,2,5,6].forEach(unit => { // 1,2,5,6과 추가
+[1,2,5].forEach(unit => { // 1,2,5과 추가
     const content = `
     <details>
         <summary>
@@ -30,7 +30,7 @@ ex2 += `<label><input type="checkbox"> Exercise 11-12</label>\n`;
     chap.innerHTML += content;
 });
 
-[9,10].forEach(unit => { //9,10과 추가
+[9].forEach(unit => { //9과 추가
     const content = `
     <details>
         <summary>
