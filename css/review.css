@@ -1,0 +1,196 @@
+body {
+  font-family: 'Segoe UI', 'Pretendard', sans-serif;
+  background: #f2f7f8;
+  color: #007c84;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.wrongs {
+  min-width: 330px;
+  max-width: 550px;
+  margin: 0 auto;
+  background: rgba(234,243,244,0.97);
+  border-radius: 26px;
+  box-shadow: 0 12px 40px 0 rgba(79,209,211,0.13), 0 1.5px 8px 0 rgba(32,116,110,0.07);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 42px 42px 34px 42px;
+  text-align: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeinmove 0.6s cubic-bezier(0.36,0.66,0.04,1) 1;
+}
+@keyframes fadeinmove {
+  from { opacity: 0; transform: translateY(40px);}
+  to   { opacity: 1; transform: translateY(0);}
+}
+.wrongs h1 {
+  font-size: 2.12rem;
+  font-weight: 800;
+  margin-bottom: 22px;
+  color: #03444a;
+  letter-spacing: 1.15px;
+  text-shadow: 0 2px 9px rgba(127,193,191,0.07);
+  margin-top: 0;
+  text-align: center;
+}
+#answer-count, #wrong-count {
+  font-size: 1.13rem;
+  color: #008d92;
+  font-weight: 600;
+  margin-bottom: 6px;
+  margin-top: 0;
+  text-align: center;
+}
+#total-percent {
+  margin-bottom: 24px;
+  color: #1bc5b2;
+  font-size: 1.14rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+
+.wrongs details {
+  background: rgba(255,255,255,0.90);
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(20,185,174,0.14);
+  padding: 22px 0 24px 0;
+  font-size: 1.18rem;
+  color: #06696e;
+  margin-bottom: 34px;
+  width: 100%;
+  max-width: 540px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: box-shadow 0.2s, background 0.2s;
+}
+.wrongs summary {
+  font-size: 1.29rem;
+  color: #00a3ab;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  outline: none;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 13px;
+  transition: background 0.13s;
+  padding: 17px 0 13px 13px;
+  background: rgba(178,217,222,0.20);
+  margin-bottom: 10px;
+}
+.wrongs summary:focus, .wrongs summary:hover {
+  background: #eaf3f4;
+}
+.wrongs-content {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  width: 100%;
+}
+.wrong-box {
+  background: #e3f4f6;
+  border-radius: 15px;
+  box-shadow: 0 2.5px 20px rgba(20,185,174,0.11);
+  padding: 24px 32px 22px 32px;
+  color: #015e63;
+  font-size: 1.18rem;
+  border-left: 7px solid #1bc5b2;
+  margin-right: 12px;
+  margin-left: 6px;
+  min-width: 0;
+  transition: box-shadow 0.19s;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.wrong-box p {
+  margin: 6px 0 8px 0;
+  color: #02777b;
+  line-height: 1.48;
+  font-size: 1.12em;
+  word-break: keep-all;
+}
+.wrong-box p:first-child {
+  font-weight: 700;
+  color: #009ca2;
+  font-size: 1.12em;
+  margin-bottom: 6px;
+}
+.wrong-box p:nth-child(2) {
+  color: #2c8f3a;
+  font-weight: 700;
+  font-size: 1.11em;
+}
+.wrong-box p:last-child {
+  color: #c62626;
+  font-weight: 700;
+  font-size: 1.11em;
+  margin-bottom: 0;
+}
+input[type="button"], button {
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.06rem;
+  background: #fff;
+  color: #007c84;
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(20,185,174,0.13);
+  cursor: pointer;
+  transition: all 0.17s;
+  margin-right: 13px;
+  margin-top: 18px;
+  margin-bottom: 8px;
+  letter-spacing: 0.3px;
+}
+input[type="button"]:hover, button:hover {
+  background: #1bc5b2;
+  color: #f2f7f8;
+  transform: translateY(-2px) scale(1.04);
+}
+#go-home-button {
+  background: #b2d9de;
+  color: #007c84;
+  font-weight: 600;
+}
+#go-home-button:hover {
+  background: #07949d;
+  color: #fff;
+}
+footer {
+  margin: 38px 0 0 0;
+  text-align: center;
+  color: #b1bdbd;
+  font-size: 0.97rem;
+  letter-spacing: 0.6px;
+  padding-bottom: 16px;
+  width: 100%;
+}
+@media (max-width: 700px) {
+  .wrongs {
+    min-width: 0;
+    max-width: 99vw;
+    padding: 9vw 2vw 8vw 2vw;
+  }
+  .wrongs details, .wrong-box {
+    max-width: 99vw;
+    padding-left: 3vw;
+    padding-right: 3vw;
+  }
+  .wrong-box {
+    padding: 17px 3vw 17px 3vw;
+  }
+}
