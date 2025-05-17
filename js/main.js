@@ -52,9 +52,13 @@ const btnCancelAll = document.getElementById('cancel-all')
 const unitBoxes = document.querySelectorAll('summary label input[type="checkbox"]') //label로 감싸져있음에 주의
 const contentBoxes = document.querySelectorAll('.unit-content input[type="checkbox"]')
 const btnStart = document.getElementById('btn-start')
-
-
 const units = document.querySelectorAll('details')
+
+// 치킨 모드 관련
+const chickenToggle = document.getElementById('chicken-toggle');
+let isChickenMode = false;
+sessionStorage.setItem('chickenMode', JSON.stringify(isChickenMode));
+
 //변수 설정
 let checklist = [] // [(UNIT_Exercise), [num, num, num]] [] [] .... 형식
 let unitIndex
@@ -62,14 +66,14 @@ let exerciseIndex
 
 // ========================================================
 
-// 전체 선택|해제 버튼 설정
+// 전체 선택|해제 버튼 설정 -> 영향 안 받을 인풋(토글 등)은 not-all-checked라는 클래스 부여
 btnSelectAll.addEventListener('click', function() {
-    const boxes = document.querySelectorAll('input[type="checkbox"]')
+    const boxes = document.querySelectorAll('input[type="checkbox"]:not(.not-all-checked)')
     boxes.forEach(cb => cb.checked = true)
 })
 
 btnCancelAll.addEventListener('click', function() {
-    const boxes = document.querySelectorAll('input[type="checkbox"]')
+    const boxes = document.querySelectorAll('input[type="checkbox"]:not(.not-all-checked)')
     boxes.forEach(cb => cb.checked = false)
 })
 
@@ -128,15 +132,10 @@ btnStart.addEventListener('click', function() {
     }
     else {
         sessionStorage.setItem('checklist', JSON.stringify(checklist))
+        isChickenMode = chickenToggle.checked;
+        sessionStorage.setItem('chickenMode', JSON.stringify(isChickenMode));
         window.location.href = 'quiz.html'
     }
 })
 
-const chickenToggle = document.getElementById('chicken-toggle');
-let isChickenMode = false;
-if (chickenToggle) {
-    chickenToggle.addEventListener('change', () => {
-        isChickenMode = chickenToggle.checked;
-        sessionStorage.setItem('chickenMode', JSON.stringify(isChickenMode));
-    });
-}
+
