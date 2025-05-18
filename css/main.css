@@ -9,9 +9,11 @@ body {
   -ms-user-select:none;
   user-select:none;
 }
+/* 여백용 윤곽선선 지정 */
 .outline{
   margin: 20px 20px 20px 20px;
 }
+/* summary, detail 들어있는 박스 */
 .outbox{
     margin: 10px;
     padding: 10px;
@@ -20,6 +22,7 @@ body {
     min-height: calc(100vh - 350px);
     border-radius: 20px;
 }
+/* 제목 들어있는 박스 */
 .container {
     max-width: 100%;
     margin: 2rem auto;
@@ -30,7 +33,7 @@ body {
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
 }
-
+/*제목*/
 .container h1 {
   font-size: 2rem;
   font-weight: 400;
@@ -39,7 +42,7 @@ body {
   font-weight: bold;
 }
 
-
+/*bt 디자인 (글래모피즘을 의도하려 했으나 뉴모피즘이 되어버림..) */
 input[type="button"] {
   padding: 0.8rem 1.4rem;
   border: none;
@@ -52,15 +55,14 @@ input[type="button"] {
   cursor: pointer;
   transition: all 0.2s ease;
 }
-
+/* 호버 시 청록색으로 변경 + 애니메이션 */
 input[type="button"]:hover {
   background-color: #007C84;
   color: #EAF3F4;
   transform: translateY(-2px);
   box-shadow: 0 6px 14px rgba(0,0,0,0.15);
 }
-
-
+/* unit 선택 summary '세로->가로' 변경 + 정렬 */
 .chapter {
   display: flex;
   flex-wrap: wrap;
@@ -68,7 +70,7 @@ input[type="button"]:hover {
   justify-content: center;
   margin-top: 1.5rem;
 }
-
+/*summary 세부사항 */
 details {
   width: 280px;
   margin: 0 40px 2rem 0;
@@ -80,7 +82,7 @@ details {
   transition: none;
 }
 
-
+/*summary 꾸미기 + 화살표 지정을 위한 가로배열*/
 summary {
   background: #EAF3F4;
   color: #f6fbfd;
@@ -96,21 +98,26 @@ summary {
   font-weight: 500;
   box-shadow: 0 6px 22px rgba(0,0,0,0.10); 
 }
-
+/*  배경 바가 누른것만 내려오도록(원래는 흰바탕으로 같이 내려옴) */
 summary::-webkit-details-marker { display: none; }
+/* ▼ 그리기 */
 summary::after {
   content: "▼";
   color: #007C84;
   font-size: 1.2rem;
 }
+/*summary 확장시 ▲로 변경*/
 details[open] summary::after {
   content: "▲";
   color: white;
+  background-color: #007C84;
+
 }
+/* summary 확장 시 청록으로 강조 */
 details[open] summary {
 background-color: #007C84;
 }
-
+/*details 이모저모*/
 details .unit-content {
   display: none;  
 }
@@ -125,12 +132,13 @@ details[open] .unit-content {
   box-shadow: 0 6px 22px rgba(0,0,0,0.10); 
   animation: dropdownOpen 0.35s;
 }
+/*투명도 애니메이션 */
 @keyframes dropdownOpen {
   from { opacity: 0; transform: translateY(-12px);}
   to   { opacity: 1; transform: translateY(0);}
 }
 
-
+/*exercise 1~ 텍스트 꾸미기*/
 .unit-content label {
   color: #f6fbfd;
   font-weight: 400;
@@ -141,7 +149,7 @@ details[open] .unit-content {
   cursor: pointer;
   gap: 0.5rem;
 }
-
+/* 체크박스 지정정 */
 .unit-content input[type="radio"] {
   accent-color: #07949d;      
   width: 18px;
@@ -161,6 +169,7 @@ footer {
   justify-self: center;
   color:#b1bdbd;
 }
+/*라벨 꾸미기 */
 label {
   display: inline-flex;
   align-items: center;
@@ -170,11 +179,11 @@ label {
   user-select: none;
   color: #007C84;
 }
-
+/* 오픈 시 변경 */
 details[open] label {
   color: white;
 }
-
+/* 체크박스 custom 변경 및 새로 그리기 */
 label input[type="checkbox"] {
   appearance: none;
   -webkit-appearance: none;
@@ -207,6 +216,7 @@ details[open] label input[type="checkbox"]:checked {
 label input[type="checkbox"]:checked::after {
   opacity: 1;
 }}
+/* 토글 */
 .toggle-wrapper {
   display: flex;
   align-items: center;
@@ -294,3 +304,114 @@ label input[type="checkbox"]:checked::after {
   visibility: visible;
   opacity: 1;
 }
+/* ==================== 모바일 대응 (최소한의 강한 대응) ==================== */
+@media (max-width: 700px) {
+  .outline {
+    margin: 5vw 1vw 5vw 1vw;
+  }
+  .container {
+    margin: 1rem auto;
+    border-radius: 16px;
+    padding: 0.3rem;
+  }
+  .container h1 {
+    font-size: 1.3rem;
+    margin: 1.3rem 0.5rem 1.3rem 0.5rem;
+  }
+  .outbox {
+    margin: 5px;
+    padding: 6px;
+    border-radius: 14px;
+    min-height: unset;
+    max-height: unset;
+  }
+  /* 버튼, 토글, 전체 상단 버튼/토글 wrapper 세로 배치 */
+  body > .outline > div[style*="justify-content: space-between"] {
+    flex-direction: column !important;
+    gap: 1rem !important;
+    align-items: stretch !important;
+  }
+  .select-all,
+  .start,
+  .mock-test {
+    flex: 1 1 100%;
+    gap: 0.7rem;
+    justify-content: stretch;
+  }
+  input[type="button"] {
+    width: 100%;
+    min-width: 0;
+    font-size: 0.97rem;
+    padding: 0.95rem 0.4rem;
+    margin-bottom: 0.5rem;
+    border-radius: 12px;
+  }
+  .toggle-wrapper {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 8px;
+    margin-bottom: 0.8rem;
+  }
+  .label-text {
+    font-size: 1rem;
+  }
+  .chapter {
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-top: 1rem;
+    align-items: stretch;
+  }
+  details {
+    width: 100%;
+    margin: 0 0 1.2rem 0;
+  }
+  summary {
+    font-size: 1.06rem;
+    min-height: 45px;
+    padding: 12px 18px;
+    border-radius: 16px;
+  }
+  details[open] .unit-content {
+    border-radius: 0 0 16px 16px;
+    padding: 14px 10px 14px 10px;
+    gap: 0.5rem;
+  }
+  .unit-content label {
+    font-size: 0.98rem;
+    margin-bottom: 0.07rem;
+    gap: 0.3rem;
+  }
+  label input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    min-width: 15px;
+    min-height: 15px;
+  }
+  footer {
+    font-size: 0.93rem;
+    text-align: center;
+    margin-top: 2.5rem;
+    position: static;
+    transform: none;
+    height: auto;
+  }
+  /* 툴팁 */
+  .tooltip {
+    font-size: 0.86rem;
+    padding: 5px 10px;
+  }
+  /* 스크롤 방지/좌우 여백 조정 */
+  html, body {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+}
+  .toggle-wrapper {
+    position: static;
+    left: unset;
+    transform: none;
+    margin: 0 auto 0.8rem auto;
+    display: flex;
+    justify-content: center;
+  }
+
