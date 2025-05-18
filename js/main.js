@@ -52,6 +52,7 @@ const btnCancelAll = document.getElementById('cancel-all')
 const unitBoxes = document.querySelectorAll('summary label input[type="checkbox"]') //label로 감싸져있음에 주의
 const contentBoxes = document.querySelectorAll('.unit-content input[type="checkbox"]')
 const btnStart = document.getElementById('btn-start')
+const btnTest = document.getElementById('btn-mock-test')
 const units = document.querySelectorAll('details')
 
 // 치킨 모드 관련
@@ -65,6 +66,11 @@ let unitIndex
 let exerciseIndex
 
 // ========================================================
+
+// 모의 테스트 버튼 -> 추후 업데이트 예정
+btnTest.addEventListener('click', () => {
+    alert('추후 업데이트 예정입니다.');
+})
 
 // 전체 선택|해제 버튼 설정 -> 영향 안 받을 인풋(토글 등)은 not-all-checked라는 클래스 부여
 btnSelectAll.addEventListener('click', function() {
