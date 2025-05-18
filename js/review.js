@@ -15,7 +15,7 @@ let checklist = [];
 
 // 홈 버튼 이벤트
 homeBtn.addEventListener('click', () => {
-    window.location.href = 'main.html';
+    window.location.href = 'index.html';
 });
 
 // 점수 표시
