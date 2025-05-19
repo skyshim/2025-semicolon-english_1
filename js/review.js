@@ -46,7 +46,7 @@ if (isWordMode) {
         const content = `
             <div class='wrong-box'>
                 <p>${w.TRANS}</p>
-                <p>답 : '${w.WORD}</p>
+                <p>답 : '${w.WORD}'</p>
                 <p>오답 : '${w.WRONG}'</p>
             </div>
         `;

@@ -55,6 +55,10 @@ const btnStart = document.getElementById('btn-start')
 const btnTest = document.getElementById('btn-mock-test')
 const units = document.querySelectorAll('details')
 
+// 순행 모드 관련
+const seqToggle = document.getElementById('sequence-toggle');
+sessionStorage.setItem('seqMode', false);
+
 // 무한 모드 관련
 const chickenToggle = document.getElementById('chicken-toggle');
 sessionStorage.setItem('chickenMode', false);
@@ -143,10 +147,16 @@ btnStart.addEventListener('click', function() {
         sessionStorage.setItem('checklist', JSON.stringify(checklist));
         sessionStorage.setItem('chickenMode', chickenToggle.checked);
         sessionStorage.setItem('onlyWordMode', wordToggle.checked);
+        sessionStorage.setItem('seqMode', seqToggle.checked);
         window.location.href = 'quiz.html'
     }
 });
 
-
+chickenToggle.addEventListener('change', () => {
+    if (chickenToggle.checked) seqToggle.checked = false;
+});
+seqToggle.addEventListener('change', () => {
+    if (seqToggle.checked) chickenToggle.checked = false;
+});
 
 

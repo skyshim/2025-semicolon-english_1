@@ -4,7 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let data = [];
   let shfData = [];
-
+  
+  const isSeqMode = JSON.parse(sessionStorage.getItem('seqMode')) === true;
   const isChickenMode = JSON.parse(sessionStorage.getItem('chickenMode')) === true;
   const isOnlyWordMode = JSON.parse(sessionStorage.getItem('onlyWordMode')) === true;
   console.log("단어 모드 여부:", isOnlyWordMode);
@@ -39,8 +40,11 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         }
       });
-
-      shfData = shuffle(data.slice());
+      if (isSeqMode) {
+        shfData = data.slice();
+      } else {
+        shfData = shuffle(data.slice());
+      }
       if (isChickenMode) {
         document.getElementById('progress-container').style.display = 'block';
         chickenModeQuiz();
@@ -124,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       let isCorrect = false;
       if (isOnlyWordMode) {
-        isCorrect = (ans.value === q.WORD);
+        isCorrect = (ans.value.toLowerCase() === q.WORD.toLowerCase());
       } else {
         isCorrect = (ans.value === q.ANSWER1) || (q.ANSWER2 !== '' && ans.value === q.ANSWER2);
       }
