@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
           wrong.push(q);
           resText = '오답입니다!';
           if (q.ANSWER2 === '') disText = `답 : ${q.ANSWER1}`;
-          else disText = `답 : ${q.ANSWER1} 간은 ${q.ANSWER2}`;
+          else disText = `답 : ${q.ANSWER1} 또는 ${q.ANSWER2}`;
         }
         console.log('맞은 개수 :', correct);
         console.log(wrong);
