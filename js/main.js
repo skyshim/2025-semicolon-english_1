@@ -55,10 +55,13 @@ const btnStart = document.getElementById('btn-start')
 const btnTest = document.getElementById('btn-mock-test')
 const units = document.querySelectorAll('details')
 
-// 치킨 모드 관련
+// 무한 모드 관련
 const chickenToggle = document.getElementById('chicken-toggle');
-let isChickenMode = false;
-sessionStorage.setItem('chickenMode', JSON.stringify(isChickenMode));
+sessionStorage.setItem('chickenMode', false);
+
+// 단어 모드 관련
+const wordToggle = document.getElementById('onlyword-toggle');
+sessionStorage.setItem('onlyWordMode', false);
 
 //변수 설정
 let checklist = [] // [(UNIT_Exercise), [num, num, num]] [] [] .... 형식
@@ -137,15 +140,11 @@ btnStart.addEventListener('click', function() {
         alert('범위를 선택해주세요!')
     }
     else {
-        sessionStorage.setItem('checklist', JSON.stringify(checklist))
-        isChickenMode = chickenToggle.checked;
-        sessionStorage.setItem('chickenMode', JSON.stringify(isChickenMode));
+        sessionStorage.setItem('checklist', JSON.stringify(checklist));
+        sessionStorage.setItem('chickenMode', chickenToggle.checked);
+        sessionStorage.setItem('onlyWordMode', wordToggle.checked);
         window.location.href = 'quiz.html'
     }
-})
-
-document.getElementById('onlyword-toggle').addEventListener('change', (e) => {
-  sessionStorage.setItem('onlyWordMode', e.target.checked);
 });
 
 

@@ -86,6 +86,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  function getFirst(data) {
+    let ind = -1;
+    for(let i = 0; i < data.length; i++) {
+      if(data[i] === '_') {
+        ind = i - 1;
+        break;
+      }
+    }
+    if (ind === -1) return 'error';
+    return data[ind];
+  }
+
   async function quizStart() {
     let quizLen = shfData.length;
     for (let index = 0; index < quizLen; index++) {
@@ -99,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
       unitIndicater.textContent = `Unit ${q.UNIT} Exercise ${q.EXERCISE}`;
 
       if (isOnlyWordMode) {
-        englsihSen.textContent = q.TRANS;
+        englsihSen.innerHTML = `&nbsp;${getFirst(q.ENGLISH)}________&nbsp;&nbsp;&nbsp;${q.TRANS}`;
         koreanSen.style.display = 'none';
       } else {
         englsihSen.textContent = q.ENGLISH;
@@ -112,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       let isCorrect = false;
       if (isOnlyWordMode) {
-        isCorrect = (ans.value === q.ANSWER3);
+        isCorrect = (ans.value === q.WORD);
       } else {
         isCorrect = (ans.value === q.ANSWER1) || (q.ANSWER2 !== '' && ans.value === q.ANSWER2);
       }
@@ -125,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
         wrong.push(q);
         resText = '오답입니다!';
         if (isOnlyWordMode) {
-          disText = `답 : ${q.ANSWER3}`;
+          disText = `답 : ${q.WORD}`;
         } else {
           disText = (q.ANSWER2 === '') ? `답 : ${q.ANSWER1}` : `답 : ${q.ANSWER1} 또는 ${q.ANSWER2}`;
         }
@@ -162,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
       unitIndicater.textContent = `Unit ${q.UNIT} Exercise ${q.EXERCISE}`;
 
       if (isOnlyWordMode) {
-        englsihSen.textContent = q.TRANS;
+        englsihSen.innerHTML = `&nbsp;${getFirst(q.ENGLISH)}________&nbsp;&nbsp;&nbsp;${q.TRANS}`;
         koreanSen.style.display = 'none';
       } else {
         englsihSen.textContent = q.ENGLISH;
@@ -177,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       let isCorrect = false;
       if (isOnlyWordMode) {
-        isCorrect = (ans.value === q.ANSWER3);
+        isCorrect = (ans.value === q.WORD);
       } else {
         isCorrect = (ans.value === q.ANSWER1) || (q.ANSWER2 !== '' && ans.value === q.ANSWER2);
       }
@@ -195,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       resIndicater.textContent = isCorrect ? '정답입니다!' : '오답입니다!';
       disText = isOnlyWordMode
-        ? `답 : ${q.ANSWER3}`
+        ? `답 : ${q.WORD}`
         : (q.ANSWER2 === '' ? `답 : ${q.ANSWER1}` : `답 : ${q.ANSWER1} 또는 ${q.ANSWER2}`);
       resDiscription.textContent = disText;
       resPage.style.display = 'block';

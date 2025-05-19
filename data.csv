@@ -1,4 +1,4 @@
-UNIT,EXERCISE,ENGLISH,KOREAN,ANSWER1,ANSWER2,ANSWER3,TRANS
+UNIT,EXERCISE,ENGLISH,KOREAN,ANSWER1,ANSWER2,WORD,TRANS
 1,1,This new product falls under the electronics c__________.,이 새로운 제품은 전자 제품 범주에 속한다.,category,,category,범주
 1,1,I e__________ an old friend at the town coffee shop last week.,나는 지난주에 시내 커피숍에서 옛 친구를 우연히 만났다.,encountered,,encounter,마주치다
 1,1,The submission deadline will be extended only in e__________ circumstances.,제출 마감일은 예외적인 상황에서만 연장될 것이다.,exceptional,,exceptional,예외적인
@@ -38,7 +38,7 @@ UNIT,EXERCISE,ENGLISH,KOREAN,ANSWER1,ANSWER2,ANSWER3,TRANS
 2,1,"She stood staring at the accident, unable to c__________.",그녀는 이해할 수 없어서 그 사고를 바라보고 서 있었다.,comprehend,,comprehend,이해하다
 2,1,He studied five foreign languages but is f__________ in only three of them.,그는 5개 외국어를 공부했지만 그중 3개만 유창하다.,fluent,,fluent,유창한
 2,1,Football season o__________ the baseball season in September.,9월에는 축구 시즌이 야구 시즌과 겹친다.,overlaps,,overlap,겹치다
-2,2,""It's only a suspicion," the police officer said, "nothing c__________."",""그것은 단지 의심일 뿐이고요, 구체적인 것은 없습니다."라고 경찰관이 말했다.",concrete,,concrete,구체적인
+2,2,"""It's only a suspicion,"" the police officer said, ""nothing c__________.""","""그것은 단지 의심일 뿐이고요, 구체적인 것은 없습니다.""라고 경찰관이 말했다.",concrete,,concrete,구체적인
 2,2,The family struggle to balance their household b__________.,그 가족은 그들의 가게 예산의 균형을 맞추기 위해 고군분투했다.,budget,budgets,budget,예산
 2,2,Einstein was a mathematical g__________.,아인슈타인은 수학 천재였다.,genius,,genius,천재
 2,3,Many companies are coming to e__________ the natural resources.,많은 기업들이 천연자원을 개발하기 위해 오고 있다.,exploit,,exploit,이용하다

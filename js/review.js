@@ -9,6 +9,7 @@ const wrongContainer = document.querySelector('.wrongs');
 
 // 데이터 불러오기
 const isChickenMode = JSON.parse(sessionStorage.getItem('chickenMode')) === true;
+const isWordMode = JSON.parse(sessionStorage.getItem('onlyWordMode')) === true;
 const correct = JSON.parse(sessionStorage.getItem('correct'));
 const wrong = JSON.parse(sessionStorage.getItem('wrong'));
 let checklist = [];
@@ -40,15 +41,28 @@ if (isChickenMode) {
 
 
 // 오답 목록 추가
-for (let w of wrong) {
-    const content = `
-        <div class='wrong-box'>
-            <p>${w.ENGLISH}</p>
-            <p>답 : '${w.ANSWER1}'${w.ANSWER2 ? ` or '${w.ANSWER2}'` : ''}</p>
-            <p>오답 : '${w.WRONG}'</p>
-        </div>
-    `;
-    wrongSens.innerHTML += content;
+if (isWordMode) {
+    for (let w of wrong) {
+        const content = `
+            <div class='wrong-box'>
+                <p>${w.TRANS}</p>
+                <p>답 : '${w.WORD}</p>
+                <p>오답 : '${w.WRONG}'</p>
+            </div>
+        `;
+        wrongSens.innerHTML += content;
+    }
+} else {
+    for (let w of wrong) {
+        const content = `
+            <div class='wrong-box'>
+                <p>${w.ENGLISH}</p>
+                <p>답 : '${w.ANSWER1}'${w.ANSWER2 ? ` or '${w.ANSWER2}'` : ''}</p>
+                <p>오답 : '${w.WRONG}'</p>
+            </div>
+        `;
+        wrongSens.innerHTML += content;
+    }
 }
 
 // 오답이 없을 경우
