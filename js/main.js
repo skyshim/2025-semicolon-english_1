@@ -144,5 +144,10 @@ btnStart.addEventListener('click', function() {
     }
 })
 
+document.getElementById('onlyword-toggle').addEventListener('change', (e) => {
+  sessionStorage.setItem('onlyWordMode', e.target.checked);
+});
+
+
 
 
