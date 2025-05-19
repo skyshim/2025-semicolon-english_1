@@ -72,7 +72,7 @@ input[type="button"]:hover {
 }
 /*summary 세부사항 */
 details {
-  width: 280px;
+  width: 250px;
   margin: 0 40px 2rem 0;
   background: transparent;  
   border: none;
