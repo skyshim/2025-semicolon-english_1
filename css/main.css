@@ -7,6 +7,7 @@ body {
   -webkit-user-select:none;
   -moz-user-select:none;
   -ms-user-select:none;
+  -ms-overflow-style: none;
   user-select:none;
 }
 /* 여백용 윤곽선선 지정 */
@@ -19,13 +20,13 @@ body {
     padding: 10px;
     background-color: #EAF3F4;
     max-height: calc(100vh - 350px);  /* viewport height */
-    min-height: calc(100vh - 350px);
+    min-height: calc(100vh - 300px);
     border-radius: 20px;
 }
 /* 제목 들어있는 박스 */
 .container {
     max-width: 100%;
-    margin: 2rem auto;
+    margin: 1rem auto;
     background-color: #EAF3F4;
     padding: 1px;
     border-radius: 20px;
@@ -127,6 +128,8 @@ details[open] .unit-content {
   background: #b2d9de;            
   border-radius: 0 0 20px 20px;    
   padding: 22px 22px 22px 22px;
+  max-height: 300px;    /* 원하는 높이로 조정 */
+  overflow-y: auto;
   margin-top: -14px;
   gap: 0.8rem;
   box-shadow: 0 6px 22px rgba(0,0,0,0.10); 
@@ -149,7 +152,14 @@ details[open] .unit-content {
   cursor: pointer;
   gap: 0.5rem;
 }
-/* 체크박스 지정정 */
+.unit-content{
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+}
+.unit-content::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
+}
+/* 체크박스 지정 */
 .unit-content input[type="radio"] {
   accent-color: #07949d;      
   width: 18px;
@@ -200,7 +210,12 @@ label input[type="checkbox"] {
 details[open] label input[type="checkbox"] {
   border: 2px solid white;
   background: rgba(255, 255, 255, 0.5);
-
+}
+/* 체크박스 체크 시 변경 색 summay, details 분리*/
+details[open] .unit-content input[type="checkbox"]:checked {
+  border: #007C84;
+  background-color: rgb(0, 124, 132);
+  box-shadow: 0 0 0 4px rgba(0, 124, 132, 0.3);
 }
 
 label input[type="checkbox"]:checked {
@@ -375,7 +390,10 @@ label input[type="checkbox"]:checked::after {
     border-radius: 0 0 16px 16px;
     padding: 14px 10px 14px 10px;
     gap: 0.5rem;
+    max-height: 100px;    /* 원하는 높이로 조정 */
+    overflow-y: auto;
   }
+  
   .unit-content label {
     font-size: 0.98rem;
     margin-bottom: 0.07rem;
