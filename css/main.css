@@ -128,7 +128,7 @@ details[open] .unit-content {
   background: #b2d9de;            
   border-radius: 0 0 20px 20px;    
   padding: 22px 22px 22px 22px;
-  max-height: 10vh;    /* 원하는 높이로 조정 */
+  max-height: 25vh;    /* 원하는 높이로 조정 */
   overflow-y: auto;
   margin-top: -14px;
   gap: 0.8rem;
