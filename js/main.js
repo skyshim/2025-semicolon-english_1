@@ -76,8 +76,8 @@ let exerciseIndex
 
 // 모의 테스트 버튼 -> 추후 업데이트 예정
 btnTest.addEventListener('click', () => {
-    window.location.href = 'test.html';
-    // alert('추후 업데이트 예정입니다.');
+    // window.location.href = 'test.html';
+    alert('추후 업데이트 예정입니다.');
 })
 
 // 전체 선택|해제 버튼 설정 -> 영향 안 받을 인풋(토글 등)은 not-all-checked라는 클래스 부여
