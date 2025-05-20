@@ -91,7 +91,10 @@ h2#timer {
   box-shadow: 0 2px 14px rgba(17,146,144,0.07);
 }
 
-button[type="submit"] {
+/* 제출 버튼 & 기타 action 버튼 통일 */
+button[type="submit"],
+.action-btn,
+details summary.action-btn {
   margin: 28px auto 0 auto;
   display: block;
   padding: 0.78rem 1.35rem;
@@ -105,34 +108,69 @@ button[type="submit"] {
   cursor: pointer;
   transition: all 0.18s;
   letter-spacing: 0.1px;
+  text-align: center;
+  text-decoration: none;
 }
-button[type="submit"]:hover {
+
+button[type="submit"]:hover,
+.action-btn:hover,
+details summary.action-btn:hover {
   background: #1bc5b2;
   color: #f2f7f8;
   transform: translateY(-1.5px) scale(1.035);
 }
-.exam-timer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.34rem;
-  font-weight: 800;
-  color: #007c84;
-  margin-bottom: 32px;
-  margin-top: 6px;
-  background: rgba(178,217,222,0.33);
-  border-radius: 19px;
-  padding: 15px 32px;
-  box-shadow: 0 2px 12px rgba(20,185,174,0.09);
-  gap: 18px;
-  letter-spacing: 0.9px;
+
+/* 오답 펼치기 */
+details {
+  margin-top: 22px;
+  border: 2px solid #cde9e9;
+  border-radius: 16px;
+  background: #fffefc;
+  box-shadow: 0 3px 18px rgba(20,185,174,0.05);
+  padding: 12px 18px;
 }
-#timer-value {
-  font-size: 1.7em;
-  color: #14b9ae;
-  margin-left: 13px;
-  font-variant-numeric: tabular-nums;
-  font-family: 'Segoe UI Mono', 'Consolas', monospace, sans-serif;
+
+details[open] {
+  padding-bottom: 18px;
+}
+
+details summary {
+  list-style: none;
+}
+
+details summary::marker,
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+/* 오답 항목 */
+.wrong-item {
+  margin-top: 14px;
+  padding: 14px 0;
+  border-top: 1px dashed #bcdcdc;
+}
+
+.wrong-item p {
+  margin: 4px 0;
+  line-height: 1.48;
+}
+
+.result-box {
+  background: rgba(255,255,255,0.92);
+  padding: 28px;
+  border-radius: 20px;
+  box-shadow: 0 4px 18px rgba(16,165,153,0.08);
+  margin-top: 20px;
+}
+
+/* 버튼 그룹 */
+#after-buttons {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 26px;
 }
 
 /* 반응형 */
@@ -148,4 +186,24 @@ button[type="submit"]:hover {
   h2#timer { font-size: 1.08rem; padding: 6px 13px; }
   .quiz-container { padding: 13px 3vw 13px 3vw; }
   .underline { width: 80px; font-size: 0.98em; }
+
+  button[type="submit"],
+  .action-btn,
+  details summary.action-btn {
+    font-size: 1rem;
+    padding: 0.65rem 1.2rem;
+  }
+
+  .result-box {
+    padding: 1.5rem 1rem;
+  }
+
+  .wrong-item {
+    padding: 10px 0;
+  }
+
+  #after-buttons {
+    flex-direction: column;
+    gap: 12px;
+  }
 }
