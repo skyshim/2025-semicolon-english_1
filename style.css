@@ -1,0 +1,19 @@
+/* 전체 공통 스타일 */
+body {
+  background-color: #FFFFFF;
+  color: #2C2C2C;
+  font-family: 'sans-serif';
+}
+
+button {
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  background-color: #F5F5F5;
+  color: #2C2C2C;
+}
+
+button:hover {
+  background-color: #DDDDDD;
+}
