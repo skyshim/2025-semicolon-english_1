@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
     if (ind === -1) return 'error';
-    return data[ind];
+    return data[ind].toLowerCase();
   }
 
   async function quizStart() {
