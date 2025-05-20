@@ -319,8 +319,13 @@ label input[type="checkbox"]:checked::after {
   visibility: visible;
   opacity: 1;
 }
+@media (max-width: 700px) and (min-width: 601px) {
+  body {
+    transform: scale(0.8);
+  }
+}
 /* ==================== 모바일 대응 (최소한의 강한 대응) ==================== */
-@media (max-width: 700px) {
+@media (max-width: 600px) {
   .outline {
     margin: 5vw 1vw 5vw 1vw;
   }
