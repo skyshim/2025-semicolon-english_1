@@ -151,6 +151,10 @@ document.addEventListener('DOMContentLoaded', () => {
       resDiscription.textContent = disText;
       resPage.style.display = 'block';
 
+      resPage.classList.remove('correct-glow', 'wrong-glow'); // 먼저 초기화
+      void resPage.offsetWidth; // 재렌더링 트릭
+      resPage.classList.add(isCorrect ? 'correct-glow' : 'wrong-glow');
+
       await waiting();
       ans.disabled = false;
     }
@@ -215,6 +219,10 @@ document.addEventListener('DOMContentLoaded', () => {
         : (q.ANSWER2 === '' ? `답 : ${q.ANSWER1}` : `답 : ${q.ANSWER1} 또는 ${q.ANSWER2}`);
       resDiscription.textContent = disText;
       resPage.style.display = 'block';
+
+      resPage.classList.remove('correct-glow', 'wrong-glow'); // 먼저 초기화
+      void resPage.offsetWidth; // 재렌더링 트릭
+      resPage.classList.add(isCorrect ? 'correct-glow' : 'wrong-glow');
 
       await waiting();
       ans.disabled = false;
