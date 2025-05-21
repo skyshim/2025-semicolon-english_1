@@ -6,6 +6,20 @@ let allQuestions = [];
 let timerInterval;
 let timeLeft = 20 * 60; // 20분
 
+// 단어 첫자 찾기
+function getFirst(data) {
+    let ind = -1;
+    for(let i = 0; i < data.length; i++) {
+        if(data[i] === '_') {
+        ind = i - 1;
+        break;
+        }
+    }
+    if (ind === -1) return 'error';
+    let f = data[ind];
+    return [ind, f];
+}
+
 // 셔플 함수
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -37,14 +51,20 @@ function generateQuiz(data1, dataGx) {
     allQuestions = quizData;
 
     quizData.forEach((q, i) => {
-        const inputHTML = `<input type="text" id="answer${i}" data-answer1="${q.ANSWER1}" data-answer2="${q.ANSWER2}" class="underline">`;
-        const engWithInput = q.ENGLISH.replace(/_+/, inputHTML);
+        const temp1 = q.ENGLISH;
+        const [ind, first] = getFirst(temp1);
+        const temp2 = temp1.slice(0, ind) + temp1.slice(ind + 1);
+        const inputHTML = `<input type="text" placeholder="${first}" id="answer${i}" data-answer1="${q.ANSWER1}" data-answer2="${q.ANSWER2}" class="underline" autocomplete="off">`;
+        const engWithInput = temp2.replace(/_+/, inputHTML);
 
         const quizBlock = document.createElement('div');
         quizBlock.className = 'quiz-sentence';
 
-        if (i >= 20) {
-            quizBlock.style.backgroundColor = '#ffecec'; // 옅은 빨간색
+        if (i == 20) {
+            const line = document.createElement('div');
+            line.className = 'line';
+            line.innerText = '낯선 문장(기출 변형)';
+            quizContainer.appendChild(line);
         }
 
         const sentenceP = document.createElement('p');
@@ -57,13 +77,27 @@ function generateQuiz(data1, dataGx) {
         quizBlock.appendChild(koreanP);
         quizContainer.appendChild(quizBlock);
     });
+    // Enter 누르면 끝나는게 아니라 다음 input으로 넘어가게
+    const inputs = document.querySelectorAll('.underline');
+
+    inputs.forEach((input, index) => {
+        input.addEventListener('keydown', function(e) {
+            if(e.key == 'Enter') {
+                e.preventDefault();
+                const next = inputs[index + 1]
+                if(next) {
+                    next.focus()
+                }
+            }
+        })
+    })
 }
 
 // 결과 표시 함수
 function displayResult(correctCount, wrongList) {
     const resultBox = document.createElement('div');
     resultBox.className = 'result-box';
-    resultBox.innerHTML = `<h3>총점: ${correctCount} / 25</h3>`;
+    resultBox.innerHTML = `<h3>결과 : ${correctCount} / 25</h3>`;
 
     if (wrongList.length > 0) {
         const details = document.createElement('details');
@@ -76,10 +110,10 @@ function displayResult(correctCount, wrongList) {
             const wrongItem = document.createElement('div');
             wrongItem.className = 'wrong-item';
             wrongItem.innerHTML = `
-                <p><strong>문제:</strong> ${ENGLISH.replace(/_+/, '_____')}</p>
-                <p><strong>내 답:</strong> ${WRONG}</p>
-                <p><strong>정답:</strong> ${ANSWER1}${ANSWER2 ? ` / ${ANSWER2}` : ''}</p>
-                <p><strong>해석:</strong> ${KOREAN}</p><hr>
+                <p><strong>문제 :</strong> ${ENGLISH.replace(/_+/, '_____')}</p>
+                <p><strong>내 답 :</strong> ${WRONG}</p>
+                <p><strong>정답 :</strong> ${ANSWER1}${ANSWER2 ? ` / ${ANSWER2}` : ''}</p>
+                <p><strong>해석 :</strong> ${KOREAN}</p>
             `;
             details.appendChild(wrongItem);
         });
@@ -88,8 +122,8 @@ function displayResult(correctCount, wrongList) {
     } else {
         resultBox.innerHTML += `<p>모든 문제를 맞췄습니다! 🎉</p>`;
     }
-
     quizContainer.appendChild(resultBox);
+    resultBox.scrollIntoView({behavior: 'smooth'});
 }
 
 // CSV 불러오기
@@ -122,10 +156,7 @@ form.addEventListener('submit', function (e) {
         const ans1 = input.dataset.answer1.toLowerCase();
         const ans2 = input.dataset.answer2?.toLowerCase();
 
-        const checkCorrect = (ans, user) =>
-            user === ans || user === ans.slice(1);  // 정답 or 첫 글자 뺀 것
-
-        if (checkCorrect(ans1, userAns) || (ans2 && checkCorrect(ans2, userAns))) {
+        if (ans1 === userAns || (ans2 && ans2 === userAns)) {
             correct++;
         } else {
             q.WRONG = userAns;

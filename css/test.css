@@ -8,6 +8,11 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  -ms-overflow-style: none;
+  user-select:none;
 }
 
 /* 메인 카드 박스 */
@@ -28,8 +33,16 @@ body {
   margin-bottom: 18px;
 }
 
+.line {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
 h1 {
-  font-size: 2.25rem;
+  font-size: 3rem;
   font-weight: 800;
   margin-top: 60px;
   margin-bottom: 8px;
@@ -46,11 +59,13 @@ h2#timer {
   color: #07949d;
   text-align: center;
   letter-spacing: 1px;
-  background: rgba(178,217,222,0.20);
+  background: rgba(246, 254, 255, 0.9);
   padding: 10px 26px;
   border-radius: 16px;
-  display: inline-block;
   box-shadow: 0 2px 14px rgba(20,185,174,0.07);
+  position:sticky;
+  z-index: 1;
+  top: 3rem;
 }
 
 .quiz-container p {
@@ -118,6 +133,13 @@ details summary.action-btn:hover {
   background: #1bc5b2;
   color: #f2f7f8;
   transform: translateY(-1.5px) scale(1.035);
+}
+
+h3 {
+  display: flex;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: bold;
 }
 
 /* 오답 펼치기 */
