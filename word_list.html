@@ -79,7 +79,8 @@ input:checked + .slider:before {
     <input type="checkbox" id="mode-toggle">
     <span class="slider"></span>
   </label>
-  <span id="mode-label">단어 숨기기</span>
+  <span id="mode-label">단어 숨기기(클릭해서 보이기)</span>
+  <input class="fav-btn" type="button" value="메인으로 돌아가기" onclick="location.href='index.html'">
 </div>
 
     <div class="favorites">
@@ -196,27 +197,40 @@ modeToggle.addEventListener('change', () => {
         const prefix = firstPart.slice(0, -1);
 
         if (mode === 'hide') {
+  const word = q.WORD.trim();
+  const firstLetter = word[0];
+
+  // _ 위치 기준 앞뒤 나누기
+  const underscoreIndex = q.ENGLISH.indexOf('_');
+  let before = q.ENGLISH.slice(0, underscoreIndex);
+  let after = q.ENGLISH.slice(underscoreIndex + 1); // 밑줄 이후
+
+  const prefix = before.slice(0, -1);       // 마지막 글자 제거
+  const hiddenPrefix = before.slice(-1);    // 마지막 글자 (숨길 부분 첫글자)
+
   const span = document.createElement('span');
   span.className = 'hide-word';
-  span.textContent = `${firstLetter}_______`;
+  span.textContent = `${hiddenPrefix}_______`;
 
   span.addEventListener('click', function () {
-  this.textContent = word;
+    this.textContent = word;
+    setTimeout(() => {
+      this.textContent = `${hiddenPrefix}_______`;
+    }, parseInt(document.getElementById('reveal-duration').value));
+  });
 
-  setTimeout(() => {
-    this.textContent = `${firstLetter}_______`;
-  }, parseInt(document.getElementById('reveal-duration').value));
-});
-
-
-  const strong = document.createElement('strong');
-  strong.textContent = `[${code}] `;
-
-  div.appendChild(strong);
-  div.appendChild(document.createTextNode(prefix));
+  div.appendChild(document.createTextNode(`[${code}] ${prefix}`));
   div.appendChild(span);
+  if (after) {
+    const cleanAfter = after.replace(/_/g, ''); // ✅ 언더바 제거
+    div.appendChild(document.createTextNode(cleanAfter));
+  }
   div.appendChild(document.createTextNode(` - ${q.TRANS}`));
 }
+
+
+
+
  else {
           const sentence = `${prefix}<span class="highlight">${word}</span>`;
           div.innerHTML = `<strong>[${code}]</strong> ${sentence} - ${q.TRANS}`;
