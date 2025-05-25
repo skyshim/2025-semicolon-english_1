@@ -234,9 +234,12 @@ modeToggle.addEventListener('change', () => {
     const parsed = Papa.parse(text, { header: true, skipEmptyLines: true });
     window.allSentences = parsed.data;
 
-    loadFavoritesFromLocalStorage(); // ✅ 즐겨찾기 먼저 불러오고
-    renderSentences();              // ✅ 그 후 화면에 적용
+    // 1️⃣ 데이터도 준비됐고 DOM도 준비됐으므로
+    loadFavoritesFromLocalStorage(); // Set 채우고
+    renderSentences();               // 별 생성되고
+    updateFavorites();               // 텍스트 반영됨 ← 이 순서가 매우 중요
   });
+
 
 
   </script>
