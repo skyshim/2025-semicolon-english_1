@@ -125,11 +125,8 @@ modeToggle.addEventListener('change', () => {
     function loadFavoritesFromLocalStorage() {
   const saved = localStorage.getItem('wordlist_favorites');
   if (saved) {
-    saved
-      .split(',')
-      .map(s => s.trim())
-      .filter(Boolean)
-      .forEach(code => favorites.add(code));
+    saved.split(',').map(s => s.trim()).filter(Boolean).forEach(code => favorites.add(code));
+    updateFavorites(); // ✅ 여기 추가해주면 텍스트도 반영됨
   }
 }
 
@@ -232,16 +229,15 @@ modeToggle.addEventListener('change', () => {
 
     // CSV 불러오기
     fetch('data.csv')
-      .then(res => res.text())
-      .then(text => {
-        const parsed = Papa.parse(text, { header: true, skipEmptyLines: true });
-        window.allSentences = parsed.data;
-        renderSentences();
-      });
+  .then(res => res.text())
+  .then(text => {
+    const parsed = Papa.parse(text, { header: true, skipEmptyLines: true });
+    window.allSentences = parsed.data;
 
-    document.addEventListener('DOMContentLoaded', () => {
-  loadFavoritesFromLocalStorage(); // ✅ 즐겨찾기 로드
-});
+    loadFavoritesFromLocalStorage(); // ✅ 즐겨찾기 먼저 불러오고
+    renderSentences();              // ✅ 그 후 화면에 적용
+  });
+
 
   </script>
 </body>
