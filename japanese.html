@@ -67,6 +67,12 @@
       margin-top: 20px;
     }
 
+    .correct-answer {
+    margin-top: 4px;
+    color: #1e90ff;
+    font-weight: bold;
+    }
+
     @media (max-width: 768px) {
       body {
         padding: 15px;
@@ -162,15 +168,23 @@
         question.innerHTML = `
         <div>${index + 1}. <strong>${labelPrefix}${item.kor}</strong>의 일본어는?</div>
         <input type="text" id="answer-${index}" onkeydown="handleEnter(event, ${index})">
+        <button onclick="toggleAnswer(${index})">정답 보기</button>
+        <div id="correct-${index}" class="correct-answer" style="display:none;">정답: ${item.jap}</div>
         `;
         quizDiv.appendChild(question);
     });
 
     document.getElementById('submitBtn').style.display = 'inline-block';
-    document.getElementById('retryBtn').style.display = 'none'; // 숨김
+    document.getElementById('retryBtn').style.display = 'none';
     document.getElementById('result').innerHTML = '';
     document.getElementById('answer-0').focus();
     }
+    
+    function toggleAnswer(index) {
+        const el = document.getElementById(`correct-${index}`);
+        el.style.display = el.style.display === 'none' ? 'block' : 'none';
+    }
+
 
     function handleEnter(event, index) {
       if (event.key === 'Enter') {
