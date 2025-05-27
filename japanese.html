@@ -59,18 +59,9 @@
       max-width: 300px;
       margin-top: 5px;
     }
-    .result {
-      background: #fffbe6;
-      border: 1px solid #ffe082;
-      padding: 15px;
-      border-radius: 8px;
-      margin-top: 20px;
-    }
-
     .correct-answer {
-    margin-top: 4px;
-    color: #1e90ff;
-    font-weight: bold;
+      margin-top: 4px;
+      font-weight: bold;
     }
 
     @media (max-width: 768px) {
@@ -102,7 +93,6 @@
     예: ～です → <strong>데수</strong><br><br>
 
     - 발음(ん), 촉음(っ), 요음(ゃゅょ): <strong>ㄴ, ㅅ, ㅑㅠㅛ</strong><br>
-    즉, 모든 작은 글자는 모음만 표기하는데, 이는 일본어와 한국어의 글자수를 동일하게 맞추기 위함입니다<br>
     예: かんこく → <strong>카ㄴ코쿠</strong>, いっしょ → <strong>이ㅅ시ㅛ</strong><br><br>
 
     - 카타카나 장음은 <strong>ㅡ</strong>로 표기합니다.<br>
@@ -111,7 +101,7 @@
     - 타행은 <strong>‘타치츠테토’</strong>로 적습니다
     또 '와' 발음이 나는 'は'의 경우 <strong>'와'</strong>로 적습니다.<br><br>
 
-    -문제 앞에 <strong>(카)</strong>가 있는 경우 가타카나, 없는 경우 히라가나에 해당합니다.<br><br>
+    -문제 앞에 <strong>(가)</strong>가 있는 경우 가타카나, 없는 경우 히라가나에 해당합니다.<br><br>
 
     - 문장표현의 경우 ~를 생략하고 적습니다.<br>
     예: ~は (은/는) -> <strong>와</strong> <br><br>
@@ -120,9 +110,6 @@
   </div>
 
   <div id="quiz"></div>
-  <button id="submitBtn" style="display:none;">제출</button>
-  <button id="retryBtn" style="display:none;" onclick="generateQuiz()">다시하기</button>
-  <div id="result" class="result"></div>
 
   <script>
     let data = [];
@@ -158,65 +145,52 @@
     }
 
     function generateQuiz() {
-    const quizDiv = document.getElementById('quiz');
-    quizDiv.innerHTML = '';
-    data.forEach((item, index) => {
-        const isKatakana = item.ishira === "0";
-        const labelPrefix = isKatakana ? "(카) " : "";
+      const quizDiv = document.getElementById('quiz');
+      quizDiv.innerHTML = '';
+      data.forEach((item, index) => {
+        const isKatakana = String(item.ishira).trim() === "0";
+        const labelPrefix = isKatakana ? "(가) " : "";
         const question = document.createElement('div');
         question.className = 'question';
         question.innerHTML = `
-        <div>${index + 1}. <strong>${labelPrefix}${item.kor}</strong>의 일본어는?</div>
-        <input type="text" id="answer-${index}" onkeydown="handleEnter(event, ${index})">
-        <button onclick="toggleAnswer(${index})">정답 보기</button>
-        <div id="correct-${index}" class="correct-answer" style="display:none;">정답: ${item.jap}</div>
+          <div>${index + 1}. <strong>${labelPrefix}${item.kor}</strong>의 일본어는?</div>
+          <input type="text" id="answer-${index}" onkeydown="handleEnter(event, ${index})">
+          <button onclick="toggleAnswer(${index})">정답 보기</button>
+          <div id="correct-${index}" class="correct-answer" style="display:none;"></div>
         `;
         quizDiv.appendChild(question);
-    });
+      });
 
-    document.getElementById('submitBtn').style.display = 'inline-block';
-    document.getElementById('retryBtn').style.display = 'none';
-    document.getElementById('result').innerHTML = '';
-    document.getElementById('answer-0').focus();
+      document.getElementById('answer-0').focus();
     }
-    
+
     function toggleAnswer(index) {
-        const el = document.getElementById(`correct-${index}`);
-        el.style.display = el.style.display === 'none' ? 'block' : 'none';
-    }
+      const answerInput = document.getElementById(`answer-${index}`);
+      const answerDiv = document.getElementById(`correct-${index}`);
+      const userAns = answerInput.value.trim();
+      const correctAns = data[index].jap.trim();
 
+      answerDiv.style.display = 'block';
+
+      if (userAns === correctAns) {
+        answerDiv.style.color = '#1e90ff';
+        answerDiv.innerHTML = `정답: ${correctAns} ✅ (맞았습니다!)`;
+      } else {
+        answerDiv.style.color = '#e63946';
+        answerDiv.innerHTML = `정답: ${correctAns} ❌ (입력: ${userAns || '없음'})`;
+      }
+    }
 
     function handleEnter(event, index) {
       if (event.key === 'Enter') {
         event.preventDefault();
+        toggleAnswer(index);
         const nextInput = document.getElementById(`answer-${index + 1}`);
         if (nextInput) {
           nextInput.focus();
-        } else {
-          document.getElementById('submitBtn').focus();
         }
       }
     }
-
-    document.getElementById('submitBtn').addEventListener('click', () => {
-    let score = 0;
-    let output = '';
-    data.forEach((item, index) => {
-        const userAns = document.getElementById(`answer-${index}`).value.trim();
-        const correct = item.jap.trim();
-        if (userAns === correct) {
-        score++;
-        } else {
-        output += `<p>${index + 1}. <strong>${item.kor}</strong> → 당신의 답: ${userAns} / 정답: ${correct}</p>`;
-        }
-    });
-
-    document.getElementById('result').innerHTML = `
-        <h3>점수: ${score} / ${data.length}</h3>
-        ${output}
-    `;
-    document.getElementById('retryBtn').style.display = 'inline-block';
-    });
   </script>
 </body>
 </html>
