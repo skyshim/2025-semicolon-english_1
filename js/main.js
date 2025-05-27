@@ -51,6 +51,7 @@ const btnCancelAll = document.getElementById('cancel-all')
 
 const unitBoxes = document.querySelectorAll('summary label input[type="checkbox"]') //label로 감싸져있음에 주의
 const contentBoxes = document.querySelectorAll('.unit-content input[type="checkbox"]')
+const btnJapanese = document.getElementById('btn-japanese')
 const btnStart = document.getElementById('btn-start')
 const btnTest = document.getElementById('btn-mock-test')
 const units = document.querySelectorAll('details')
@@ -73,6 +74,10 @@ let unitIndex
 let exerciseIndex
 
 // ========================================================
+
+btnJapanese.addEventListener('click', () => {
+    window.location.href = 'japanese.html';
+})
 
 // 모의 테스트 버튼 -> 추후 업데이트 예정
 btnTest.addEventListener('click', () => {

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>일본어 단어 퀴즈</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f9f9fb;
+      color: #333;
+    }
+    h1 {
+      color: #1d3557;
+    }
+    label {
+      margin-right: 10px;
+    }
+    button {
+      background: #1d3557;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin: 10px 5px 20px 0;
+    }
+    button:hover {
+      background: #457b9d;
+    }
+    #helpToggle {
+      cursor: pointer;
+      color: #1d3557;
+      text-decoration: underline;
+      margin-bottom: 10px;
+      display: inline-block;
+    }
+    #helpBox {
+      background: #e0f0ff;
+      border-left: 5px solid #90caf9;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      display: none;
+    }
+    .question {
+      background: white;
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+    }
+    input[type="text"] {
+      padding: 6px;
+      width: 100%;
+      max-width: 300px;
+      margin-top: 5px;
+    }
+    .result {
+      background: #fffbe6;
+      border: 1px solid #ffe082;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 15px;
+      }
+      input[type="text"] {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>일본어 단어 퀴즈</h1>
+
+  <label><input type="radio" name="mode" value="sequential" checked> 순차</label>
+  <label><input type="radio" name="mode" value="random"> 랜덤</label>
+  <br><br>
+
+  <button onclick="loadCSV()">퀴즈 시작</button>
+  <div id="helpToggle" onclick="toggleHelp()">도움말 보기</div>
+  <div id="helpBox">
+    <strong>입력 안내:</strong><br>
+    - 일본어자판은 글자를 발음으로 그대로 치환하여 적습니다. 장음도 히라가나 음가 그대로 표기합니다.<br>
+    &nbsp;&nbsp;→ <strong>ㅏ ㅣ ㅜ ㅔ ㅗ / 아카사타나하마야라와응</strong> 사용<br>
+    예: おいしい → <strong>오이시이</strong><br><br>
+
+    - 탁음/반탁음: <strong>가자다바 / 파</strong><br>
+    예: ～です → <strong>데수</strong><br><br>
+
+    - 발음(ん), 촉음(っ), 요음(ゃゅょ): <strong>ㄴ, ㅅ, ㅑㅠㅛ</strong><br>
+    즉, 모든 작은 글자는 모음만 표기하는데, 이는 일본어와 한국어의 글자수를 동일하게 맞추기 위함입니다<br>
+    예: かんこく → <strong>카ㄴ코쿠</strong>, いっしょ → <strong>이ㅅ시ㅛ</strong><br><br>
+
+    - 카타카나 장음은 <strong>ㅡ</strong>로 표기합니다.<br>
+    예: アイスクリーム → <strong>아이수쿠리ㅡ무</strong><br><br>
+
+    - 타행은 <strong>‘타치츠테토’</strong>로 적습니다
+    또 '와' 발음이 나는 'は'의 경우 <strong>'와'</strong>로 적습니다.<br><br>
+
+    -문제 앞에 <strong>(카)</strong>가 있는 경우 가타카나, 없는 경우 히라가나에 해당합니다.<br><br>
+
+    - 문장표현의 경우 ~를 생략하고 적습니다.<br>
+    예: ~は (은/는) -> <strong>와</strong> <br><br>
+
+    *개발자놈이 일본어책을 두고와서 빠진 단어가 많습니다.. 양해부탁드립니다 :)*
+  </div>
+
+  <div id="quiz"></div>
+  <button id="submitBtn" style="display:none;">제출</button>
+  <button id="retryBtn" style="display:none;" onclick="generateQuiz()">다시하기</button>
+  <div id="result" class="result"></div>
+
+  <script>
+    let data = [];
+
+    function toggleHelp() {
+      const help = document.getElementById('helpBox');
+      help.style.display = (help.style.display === 'none') ? 'block' : 'none';
+    }
+
+    function loadCSV() {
+      fetch('japanese.csv')
+        .then(response => response.text())
+        .then(text => {
+          const lines = text.trim().split('\n').slice(1);
+          data = lines.map(line => {
+            const [kor, jap, ishira] = line.split(',');
+            return { kor, jap, ishira };
+          });
+
+          const mode = document.querySelector('input[name="mode"]:checked').value;
+          if (mode === 'random') shuffle(data);
+
+          generateQuiz();
+        })
+        .catch(error => alert("CSV 불러오기 실패: " + error));
+    }
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+
+    function generateQuiz() {
+    const quizDiv = document.getElementById('quiz');
+    quizDiv.innerHTML = '';
+    data.forEach((item, index) => {
+        const isKatakana = item.ishira === "0";
+        const labelPrefix = isKatakana ? "(카) " : "";
+        const question = document.createElement('div');
+        question.className = 'question';
+        question.innerHTML = `
+        <div>${index + 1}. <strong>${labelPrefix}${item.kor}</strong>의 일본어는?</div>
+        <input type="text" id="answer-${index}" onkeydown="handleEnter(event, ${index})">
+        `;
+        quizDiv.appendChild(question);
+    });
+
+    document.getElementById('submitBtn').style.display = 'inline-block';
+    document.getElementById('retryBtn').style.display = 'none'; // 숨김
+    document.getElementById('result').innerHTML = '';
+    document.getElementById('answer-0').focus();
+    }
+
+    function handleEnter(event, index) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        const nextInput = document.getElementById(`answer-${index + 1}`);
+        if (nextInput) {
+          nextInput.focus();
+        } else {
+          document.getElementById('submitBtn').focus();
+        }
+      }
+    }
+
+    document.getElementById('submitBtn').addEventListener('click', () => {
+    let score = 0;
+    let output = '';
+    data.forEach((item, index) => {
+        const userAns = document.getElementById(`answer-${index}`).value.trim();
+        const correct = item.jap.trim();
+        if (userAns === correct) {
+        score++;
+        } else {
+        output += `<p>${index + 1}. <strong>${item.kor}</strong> → 당신의 답: ${userAns} / 정답: ${correct}</p>`;
+        }
+    });
+
+    document.getElementById('result').innerHTML = `
+        <h3>점수: ${score} / ${data.length}</h3>
+        ${output}
+    `;
+    document.getElementById('retryBtn').style.display = 'inline-block';
+    });
+  </script>
+</body>
+</html>
