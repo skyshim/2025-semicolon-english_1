@@ -379,7 +379,7 @@ function submitAnswer() {
   autoNextTimeout = setTimeout(() => loadQuiz(), 2000);
 }
 
-fetch('/chinese.csv')
+fetch('chinese.csv')
   .then(res => res.text())
   .then(text => quizData = parseCSV(text))
   .catch(err => alert("CSV 로딩 실패!"));
