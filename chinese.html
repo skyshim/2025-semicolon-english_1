@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chinese Quiz</title>
+  <style>
+    .hidden { display: none !important; }
+    canvas { border: 2px solid #aaa;
+    background-color: #fff;
+    touch-action: none;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+  html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', 'Noto Sans KR', sans-serif;
+  background: linear-gradient(135deg, #eaf3f4 0%, #f7fafb 100%);
+  color: #193b4c;
+  min-height: 100vh;
+}
+
+/* 메인 container */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2.5rem;
+  width: 100%;
+  max-width: 80vw;
+  margin: 3.5rem auto 0 auto;
+  padding: 2.2rem 2.5rem 2rem 2.5rem;
+  background: rgba(255,255,255,0.50);
+  border-radius: 2.5rem;
+  box-shadow: 0 6px 32px 0 rgba(0, 124, 132, 0.08), 0 1.5px 6px 0 rgba(43, 184, 201, 0.04);
+}
+
+/* 제목/탭 안내 */
+.container > p {
+  font-size: 1.7rem;
+  font-weight: bold;
+  color: #007C84;
+  letter-spacing: 0.01em;
+  margin: 0 0 0.8rem 0;
+}
+
+/* 탭 라디오 그룹 */
+.tabs {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  margin-bottom: 1.2rem;
+}
+
+.tabs input[type="radio"] {
+  display: none;
+}
+.tabs label {
+  padding: 0.7rem 2.2rem;
+  border-radius: 2.1rem;
+  font-size: 1.08rem;
+  font-weight: 500;
+  background: rgba(224, 241, 244, 0.93);
+  color: #007C84;
+  cursor: pointer;
+  box-shadow: 0 2px 12px rgba(43,184,201,0.06);
+  border: 2px solid transparent;
+  transition: background 0.17s, color 0.15s, border 0.17s;
+}
+.tabs input[type="radio"]:checked + label {
+  background: #f9fbfd;
+  color: #14b9ae;
+  border: 2px solid #14b9ae;
+}
+
+/* 시작 버튼 */
+button, input[type="button"] {
+  font-family: inherit;
+  font-size: 1.09rem;
+  font-weight: 600;
+  padding: 0.9rem 2.1rem;
+  border-radius: 1.6rem;
+  background: rgba(224, 241, 244, 0.93);
+  color: #007C84;
+  border: none;
+  box-shadow: 0 2.5px 12px 0 rgba(20, 185, 174, 0.07);
+  cursor: pointer;
+  margin: 0.18rem 0.09rem;
+  transition: background 0.15s, color 0.13s, box-shadow 0.15s;
+}
+button:hover, input[type="button"]:hover {
+  background: #14b9ae;
+  color: #fff;
+  box-shadow: 0 4px 16px 0 rgba(20,185,174,0.16);
+  transform: translateY(-1.5px) scale(1.03);
+}
+
+input[type="text"] {
+  font-family: inherit;
+  font-size: 1.07rem;
+  border-radius: 1.3rem;
+  padding: 0.8rem 1.4rem;
+  border: none;
+  box-shadow: 0 2px 11px 0 rgba(43, 184, 201, 0.10);
+  background: #f5fafc;
+  margin-right: 0.9rem;
+  color: #13546a;
+  transition: box-shadow 0.15s, background 0.12s;
+  outline: none;
+}
+input[type="text"]:focus {
+  background: #eaf3f4;
+  box-shadow: 0 4px 16px rgba(43, 184, 201, 0.12);
+}
+
+/* 퀴즈 섹션 */
+#quizSection {
+  width: 100%;
+  max-width: 520px;
+  background: rgba(250,255,255,0.90);
+  border-radius: 1.8rem;
+  box-shadow: 0 2.5px 14px rgba(20,185,174,0.05);
+  padding: 2rem 1.3rem 2rem 1.3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* 문제 텍스트 */
+#questionText {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #007C84;
+  margin-bottom: 0.4rem;
+  text-align: center;
+}
+
+/* 입력란/제출 버튼 */
+#textInputSection {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.1rem;
+  margin-bottom: 1.1rem;
+}
+
+/* 필기/캔버스 입력 */
+#canvasInputSection {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-top: 1.3rem;
+}
+
+#canvasInputSection > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+#canvasInputSection button {
+  width: 120px;
+  min-width: 90px;
+  align-self: flex-start;
+}
+
+#drawCanvas {
+  display: block;
+  border-radius: 1.1rem;
+  background: #fff;
+  border: none;
+  box-shadow: 0 2px 10px 0 rgba(0, 124, 132, 0.13), 0 0.5px 3px 0 rgba(43, 184, 201, 0.06);
+  margin: 0 auto;
+  max-width: 98vw;
+  max-height: 56vw;
+}
+
+
+/* feedback */
+#feedback {
+  font-size: 1.15rem;
+  font-weight: 600;
+  min-height: 2em;
+  text-align: left;
+  padding-top: 0.3em;
+  padding-bottom: 0.2em;
+  color: #007C84;
+}
+
+/* 반응형 모바일 */
+@media (max-width: 700px) {
+  .container {
+    max-width: 97vw;
+    padding: 1.4rem 0.5rem 1.5rem 0.5rem;
+    border-radius: 2rem;
+    gap: 1.5rem;
+  }
+  #quizSection {
+    max-width: 97vw;
+    padding: 1.1rem 0.2rem 1.2rem 0.2rem;
+    border-radius: 1.15rem;
+    gap: 1.1rem;
+  }
+  .tabs {
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    font-size: 1rem;
+  }
+  #canvasInputSection {
+    flex-direction: column;
+    gap: 1.1rem;
+    align-items: stretch;
+  }
+  #drawCanvas {
+    width: 97vw !important;
+    height: 35vw !important;
+    max-width: 98vw;
+    max-height: 56vw;
+    border-radius: 0.6rem;
+  }
+  #canvasInputSection > div {
+    flex-direction: row;
+    gap: 0.7rem;
+    justify-content: center;
+    align-items: flex-start;
+  }
+}
+
+::-webkit-input-placeholder { color: #b1bdbd; }
+::-moz-placeholder { color: #b1bdbd; }
+:-ms-input-placeholder { color: #b1bdbd; }
+::placeholder { color: #b1bdbd; }
+
+  </style>
+</head>
+<body>
+  <div class="container" style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
+    <p>choose quiz category</p>
+    <div class="tabs">
+      <input type="radio" id="radio-1" name="tabs" checked>
+      <label for="radio-1">1과 - 뜻 쓰기</label>
+      <input type="radio" id="radio-2" name="tabs">
+      <label for="radio-2">간체, 한어병음 쓰기</label>
+    </div>
+
+    <button id="startBtn">start Test</button>
+
+    <div id="quizSection" class="hidden">
+      <p id="questionText"></p>
+
+      <!-- 뜻 쓰기 (text input) -->
+      <div id="textInputSection">
+        <input type="text" id="answerInput" placeholder="뜻(한글)을 입력하세요">
+        <button id="submitAnswer">제출</button>
+      </div>
+      <p id="feedback" style="max-height: 1em;"></p>
+
+    <div id="canvasInputSection" class="hidden">
+    <!-- 왼쪽: 정답 보기 -->
+    <div style="
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 160px;              
+  flex-shrink: 0;           
+;">
+        <button id="showCanvasAnswer">정답 보기</button>
+        <button id="clearCanvas">지우기</button>
+        <button id="nextCanvasQuiz">다음 문제</button>
+
+    </div>
+
+  <!-- 오른쪽: 필기 캔버스 -->
+<canvas id="drawCanvas" width="320" height="230"></canvas>
+</div>
+
+    </div>
+  </div>
+
+  <script>
+  let quizData = [];
+  let currentQuiz = null;
+  let isAnswered = false;
+  let autoNextTimeout = null;
+
+  const canvas = document.getElementById('drawCanvas');
+  const ctx = canvas.getContext('2d');
+
+  // 캔버스 필기 선 스타일
+  function setDrawingStyle() {
+    ctx.strokeStyle = '#000';
+    ctx.lineWidth = 3;
+    ctx.lineCap = 'round';
+  }
+
+  function parseCSV(csv) {
+    const lines = csv.split("\n").map(line => line.trim()).filter(line => line);
+    const headers = lines[0].split(",");
+    return lines.slice(1).map(line => {
+      const values = line.split(",");
+      const obj = {};
+      headers.forEach((h, i) => obj[h.trim()] = values[i]?.trim());
+      return obj;
+    });
+  }
+
+  function drawWritingLayout() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // 간체자 4칸
+    ctx.strokeStyle = '#ccc';
+    ctx.lineWidth = 1;
+
+    const topMargin = 20;
+    const boxSize = 100;
+    const boxGap = 10;
+
+    for (let i = 0; i < 4; i++) {
+      const x = 20 + i * (boxSize + boxGap);
+      const y = topMargin;
+      ctx.strokeRect(x, y, boxSize, boxSize);
+    }
+
+    // 병음 칸
+    const pinyinBoxX = 20;
+    const pinyinBoxY = topMargin + boxSize + 30;
+    const pinyinBoxWidth = 4 * boxSize + 3 * boxGap;
+    const pinyinBoxHeight = 50;
+
+    ctx.strokeRect(pinyinBoxX, pinyinBoxY, pinyinBoxWidth, pinyinBoxHeight);
+
+    setDrawingStyle();
+  }
+
+  function resizeCanvasAndDrawLayout() {
+    // 예시: 항상 가로 최대 320, 세로 최대 230, 혹은 화면 90%까지
+    let w = Math.min(window.innerWidth * 0.8, 320);
+    let h = 230;
+    canvas.width = w;
+    canvas.height = h;
+    drawWritingLayout();
+  }
+
+
+  window.addEventListener("resize", resizeCanvasAndDrawLayout);
+
+  function loadQuiz() {
+    const isMeaningQuiz = document.getElementById('radio-1').checked;
+    const category = isMeaningQuiz ? '1' : '2';
+    const candidates = quizData.filter(entry => entry.category === category);
+
+    if (candidates.length === 0) return alert("해당 카테고리에 단어가 없습니다.");
+
+    currentQuiz = candidates[Math.floor(Math.random() * candidates.length)];
+    isAnswered = false;
+    clearTimeout(autoNextTimeout);
+    document.getElementById("quizSection").classList.remove("hidden");
+
+    if (isMeaningQuiz) {
+      document.getElementById("questionText").textContent = `한어병음: ${currentQuiz["한어병음"]}`;
+      document.getElementById("textInputSection").classList.remove("hidden");
+      document.getElementById("canvasInputSection").classList.add("hidden");
+      document.getElementById("answerInput").value = '';
+      document.getElementById("answerInput").focus();
+      document.getElementById("feedback").textContent = '';
+    } else {
+      document.getElementById("questionText").textContent = `뜻: ${currentQuiz["한글"]}`;
+      document.getElementById("textInputSection").classList.add("hidden");
+      document.getElementById("canvasInputSection").classList.remove("hidden");
+      document.getElementById("feedback").textContent = '';
+      resizeCanvasAndDrawLayout();
+    }
+  }
+
+  function submitAnswer() {
+    if (!currentQuiz || isAnswered) return;
+    const userAnswer = document.getElementById("answerInput").value.trim();
+    const correctAnswer = currentQuiz["한글"];
+    const feedback = document.getElementById("feedback");
+
+    if (userAnswer === correctAnswer) {
+      feedback.textContent = "✅ 정답입니다!";
+      feedback.style.color = "green";
+    } else {
+      feedback.textContent = `❌ 오답입니다! 정답: ${correctAnswer}`;
+      feedback.style.color = "red";
+    }
+
+    isAnswered = true;
+    autoNextTimeout = setTimeout(() => loadQuiz(), 2000);
+  }
+
+  fetch('/chinese.csv')
+    .then(res => res.text())
+    .then(text => quizData = parseCSV(text))
+    .catch(err => alert("CSV 로딩 실패!"));
+
+  document.getElementById("startBtn").addEventListener("click", () => {
+    if (quizData.length === 0) return alert("CSV가 아직 로딩되지 않았습니다.");
+    loadQuiz();
+  });
+
+  document.getElementById("submitAnswer").addEventListener("click", submitAnswer);
+
+  document.getElementById("answerInput").addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      if (!isAnswered) submitAnswer();
+      else loadQuiz();
+    }
+  });
+
+  document.getElementById("nextCanvasQuiz").addEventListener("click", () => {
+    loadQuiz();
+  });
+
+  document.getElementById("clearCanvas").addEventListener("click", () => {
+    drawWritingLayout();
+  });
+
+  document.getElementById("showCanvasAnswer").addEventListener("click", () => {
+    if (!currentQuiz) return;
+    const correctAnswer = `${currentQuiz["간체자"]} ${currentQuiz["한어병음"]}`;
+    const feedback = document.getElementById("feedback");
+
+    feedback.textContent = `📌 정답: ${correctAnswer}`;
+    feedback.style.color = "blue";
+
+    isAnswered = true;
+    clearTimeout(autoNextTimeout);
+    autoNextTimeout = setTimeout(() => loadQuiz(), 2000);
+  });
+
+  // 필기용 드로잉 이벤트
+  let drawing = false;
+  function getCanvasXY(e) {
+    const rect = canvas.getBoundingClientRect();
+    return {
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
+    };
+  }
+
+  canvas.addEventListener('mousedown', (e) => {
+    drawing = true;
+    const { x, y } = getCanvasXY(e);
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+  });
+
+  canvas.addEventListener('mousemove', (e) => {
+    if (!drawing) return;
+    const { x, y } = getCanvasXY(e);
+    ctx.lineTo(x, y);
+    ctx.stroke();
+  });
+
+  canvas.addEventListener('mouseup', () => drawing = false);
+  canvas.addEventListener('mouseleave', () => drawing = false);
+
+  canvas.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    drawing = true;
+    const touch = e.touches[0];
+    const { x, y } = getCanvasXY(touch);
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+  }, { passive: false });
+
+  canvas.addEventListener('touchmove', (e) => {
+    e.preventDefault();
+    if (!drawing) return;
+    const touch = e.touches[0];
+    const { x, y } = getCanvasXY(touch);
+    ctx.lineTo(x, y);
+    ctx.stroke();
+  }, { passive: false });
+
+  canvas.addEventListener('touchend', () => drawing = false);
+  
+</script>
+
+</body>
+</html>
