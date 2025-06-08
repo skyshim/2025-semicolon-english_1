@@ -170,6 +170,7 @@
       text-align: left;
       padding-top: 0.3em;
       padding-bottom: 0.2em;
+      margin:auto 0; 
       color: #007C84;
     }
     @media (max-width: 700px) {
@@ -409,9 +410,9 @@ document.getElementById("showCanvasAnswer").addEventListener("click", () => {
   const feedback = document.getElementById("feedback");
   feedback.textContent = `📌 정답: ${correctAnswer}`;
   feedback.style.color = "blue";
+  feedback.style.fontSize = "2rem";
   isAnswered = true;
-  clearTimeout(autoNextTimeout);
-  autoNextTimeout = setTimeout(() => loadQuiz(), 2000);
+ 
 });
 
 // 필기 드로잉
